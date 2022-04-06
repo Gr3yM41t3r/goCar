@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="categories">Categories</string>
+    <string name="all">ALL</string>
+    <string name="Break">Break</string>
+    <string name="berline">Berline</string>
+    <string name="citadine">Citadine</string>
+    <string name="sport">Sport</string>
+
+    <string name="Que_recherchez_vous">Que_recherchez_vous ?</string>
 </resources>
