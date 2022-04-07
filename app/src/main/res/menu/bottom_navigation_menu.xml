@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homePage"
+        android:icon="@drawable/ic_baseline_home_36"
+        android:color="@color/white"
+        android:title=""/>
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_cards_heart_outline_white_36dp"
+        android:color="@color/white"
+        android:title=""/>
+
+    <item
+        android:id="@+id/page_2"
+        android:color="@color/white"
+        android:icon="@drawable/ic_baseline_person_pin_24"
+        android:title=""/>
+</menu>

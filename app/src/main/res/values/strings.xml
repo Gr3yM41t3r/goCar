@@ -7,5 +7,12 @@
     <string name="citadine">Citadine</string>
     <string name="sport">Sport</string>
 
-    <string name="Que_recherchez_vous">Que_recherchez_vous ?</string>
+    <string name="Que_recherchez_vous"><font size="18">Que_recherchez_vous ?</font></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mercedes_eqs_580">Mercedes EQS 580</string>
+    <string name="_28_000km">28,000km</string>
+    <string name="electrique">Electrique</string>
+    <string name="montpellier">Montpellier</string>
+    <string name="_50_000">50,000€</string>
 </resources>
