@@ -4,9 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/bottom_nav_menu.xml" value="0.534" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/custom__input.xml" value="0.3165" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/custom_button_orange.xml" value="0.3165" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.3165" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/ic_login_ui_2a.xml" value="0.3165" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout-v23/activity_home_page.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout-w936dp/activity_login.xml" value="0.10451388888888889" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/activity_hom_page.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/activity_home_page.xml" value="0.25" />
+        <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/fragment_blank.xml" value="0.37924438067910093" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4433518597691321" />
