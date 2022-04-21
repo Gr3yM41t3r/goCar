@@ -2,11 +2,11 @@ package com.example.myapplication.model;
 
 public class Compte {
     private String email;
-    private String motDePasse;
+    private String password;
 
-    public Compte(String email, String motDePasse) {
+    public Compte(String email, String password) {
         this.email = email;
-        this.motDePasse = motDePasse;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -18,10 +18,10 @@ public class Compte {
     }
 
     public String getMotDePasse() {
-        return motDePasse;
+        return password;
     }
 
     public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+        this.password = motDePasse;
     }
 }
