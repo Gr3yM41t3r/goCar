@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         Button login = findViewById(R.id.login);
         EditText email = findViewById(R.id.emailInput);
         EditText password = findViewById(R.id.passwordInput);
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,12 +65,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
                // assert response.body() != null;
-                try {
+            try {
                     if(response.code() ==200){
                         String s = response.body().toString();
                         JSONObject jsonObject = new JSONObject(s);
                         jsonObject = new JSONObject(String.valueOf(jsonObject));
+                        Log.e("aaaaaaaaa",jsonObject.toString());
+                        Log.e("aaaaaaaaa",new JSONObject(jsonObject.getString("data")).getString("email"));
                         Toast.makeText(LoginActivity.this,"Logged In",Toast.LENGTH_LONG).show();
+                        SaveSharedPreference.setUsersEmail(LoginActivity.this,new JSONObject(jsonObject.getString("data")).getString("email"));
                     }else {
                         Toast.makeText(LoginActivity.this,"Error Repeat Again",Toast.LENGTH_LONG).show();
                     }
@@ -76,9 +84,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"failure",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this,"Service Indisponible",Toast.LENGTH_LONG).show();
             }
         });
-
     }
 }

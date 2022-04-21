@@ -11,7 +11,7 @@
         android:title=""/>
 
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/account"
         android:color="@color/white"
         android:icon="@drawable/ic_baseline_person_pin_24"
         android:title=""/>
