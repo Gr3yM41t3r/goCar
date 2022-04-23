@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.RegisterFormFragment2">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="330dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="180dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_baseline_person_add_24" />
+
+            <EditText
+                android:id="@+id/firstnameInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/prenom"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColorHint="@color/lightGray40"/>
+
+            <EditText
+                android:id="@+id/lastnameInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/nom"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColorHint="@color/lightGray40"/>
+
+            <DatePicker
+                android:id="@+id/birthDayInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/nom"
+                android:textColorHint="@color/lightGray40"/>
+            <EditText
+                android:id="@+id/phoneInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/nom"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColorHint="@color/lightGray40"/>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/back_form"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/custom_button_pink_reverse"
+                    android:gravity="center"
+                    android:text="@string/avant"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:id="@+id/previous_form"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/custom_button_pink"
+                    android:gravity="center"
+                    android:text="@string/terminer"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

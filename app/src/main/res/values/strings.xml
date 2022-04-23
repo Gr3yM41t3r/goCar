@@ -27,4 +27,13 @@
     <string name="email">Email</string>
     <string name="mot_de_passe">Mot de passe</string>
     <string name="se_connecter">Se connecter</string>
+    <string name="o_connectez_vous_avec">Où connectez-vous avec</string>
+    <string name="vous_n_avez_pas_de_compte">Vous n\'avez pas de compte?</string>
+    <string name="s_enregistrer">S\'enregistrer</string>
+    <string name="s_enrengistrer">S\'enrengistrer</string>
+    <string name="suivant">Suivant</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prenom</string>
+    <string name="terminer">Terminer</string>
+    <string name="avant">avant</string>
 </resources>
