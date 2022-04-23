@@ -33,7 +33,11 @@
     <string name="s_enrengistrer">S\'enrengistrer</string>
     <string name="suivant">Suivant</string>
     <string name="nom">Nom</string>
-    <string name="prenom">Prenom</string>
+    <string name="prenom">Prénom</string>
     <string name="terminer">Terminer</string>
     <string name="avant">avant</string>
+    <string name="t_l_phone">téléphone</string>
+    <string name="retour">retour</string>
+    <string name="confirmer">confirmer</string>
+    <string name="date_de_naissance">date de naissance</string>
 </resources>

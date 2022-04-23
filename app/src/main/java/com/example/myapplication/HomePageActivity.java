@@ -44,7 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
                 break;
             case R.id.account:
                 if (SaveSharedPreference.isLogedIn(HomePageActivity.this)) {
-                    Toast.makeText(HomePageActivity.this, "Already Loged in", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomePageActivity.this, "Already Logged in", Toast.LENGTH_LONG).show();
 
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);

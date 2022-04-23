@@ -54,7 +54,7 @@
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
 
-            <DatePicker
+            <TextView
                 android:id="@+id/birthDayInput"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
@@ -62,7 +62,11 @@
                 android:background="@drawable/custom__input"
                 android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/nom"
+                android:hint="@string/date_de_naissance"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
             <EditText
                 android:id="@+id/phoneInput"
@@ -72,7 +76,7 @@
                 android:background="@drawable/custom__input"
                 android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/nom"
+                android:hint="@string/t_l_phone"
                 android:inputType="phone"
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
@@ -91,11 +95,11 @@
                     android:layout_marginTop="40dp"
                     android:background="@drawable/custom_button_pink_reverse"
                     android:gravity="center"
-                    android:text="@string/avant"
+                    android:text="@string/retour"
                     android:textColor="@color/white"/>
 
                 <Button
-                    android:id="@+id/previous_form"
+                    android:id="@+id/confirm_register"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
@@ -103,7 +107,7 @@
                     android:layout_marginTop="40dp"
                     android:background="@drawable/custom_button_pink"
                     android:gravity="center"
-                    android:text="@string/terminer"
+                    android:text="@string/confirmer"
                     android:textColor="@color/white"/>
 
 
