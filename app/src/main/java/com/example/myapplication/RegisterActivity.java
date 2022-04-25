@@ -10,12 +10,12 @@ import com.example.myapplication.Fragments.RegisterFormFragment1;
 
 public class RegisterActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
-
+    Fragment fm ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Fragment fm = new RegisterFormFragment1();
+        fm = new RegisterFormFragment1();
         setFragment(fm);
     }
 

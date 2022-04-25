@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class RegisterFormFragment2 extends Fragment {
     EditText phoneNumber;
     Button previous_form;
     Button confirmRegister;
+    CheckBox isPofessionel;
     Bundle bundle;
     private DatePickerDialog datePickerDialog;
     public RegisterFormFragment2() {
@@ -63,6 +65,7 @@ public class RegisterFormFragment2 extends Fragment {
         super.onCreate(savedInstanceState);
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+        setExitTransition(inflater.inflateTransition(R.transition.fade));
 
     }
 
@@ -78,16 +81,24 @@ public class RegisterFormFragment2 extends Fragment {
         firstName= view.findViewById(R.id.firstnameInput);
         lastName= view.findViewById(R.id.lastnameInput);
         phoneNumber= view.findViewById(R.id.phoneInput);
+        isPofessionel= view.findViewById(R.id.userStatusCheckbox);
+
         confirmRegister= view.findViewById(R.id.confirm_register);
         confirmRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserModel userModel = new UserModel(firstName.getText().toString(),
-                        lastName.getText().toString(),
-                        birthDayPicker.getText().toString(),
-                        phoneNumber.getText().toString()
-                        );
-                sendNetworkRequest(userModel);
+                if (isPofessionel.isChecked()){
+                    nextFragment(new RegisterFormFragment3());
+
+                }else {
+                    UserModel userModel = new UserModel(firstName.getText().toString(),
+                            lastName.getText().toString(),
+                            birthDayPicker.getText().toString(),
+                            phoneNumber.getText().toString()
+                    );
+                    sendNetworkRequest(userModel);
+                }
+
             }
         });
 
@@ -95,6 +106,7 @@ public class RegisterFormFragment2 extends Fragment {
         birthDayPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 openDatePicker(view);
             }
         });
@@ -107,8 +119,9 @@ public class RegisterFormFragment2 extends Fragment {
 
         return view;
     }
-
-
+    public void nextFragment(Fragment fragment){
+        ((RegisterActivity) this.requireActivity()).setFragment(fragment);
+    }
 
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {

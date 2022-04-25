@@ -32,6 +32,7 @@ public class RegisterFormFragment1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
     }
 
@@ -52,7 +53,6 @@ public class RegisterFormFragment1 extends Fragment {
                 String passwordValue=password.getText().toString();
                 String confirmPasswordValue=confirmPassword.getText().toString();
                 String emailValue =email.getText().toString();
-
                 if (TextUtils.isEmpty(emailValue)||TextUtils.isEmpty(passwordValue)||TextUtils.isEmpty(confirmPasswordValue)){
                     email.setError("requis");
                     password.setError("requis");
