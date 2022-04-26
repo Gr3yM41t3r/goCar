@@ -20,6 +20,10 @@ import com.example.myapplication.retrofit.LoginInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -87,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
                         Toast.makeText(LoginActivity.this,"Error Repeat Again",Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | IOException | GeneralSecurityException e) {
                     e.printStackTrace();
                 }
             }

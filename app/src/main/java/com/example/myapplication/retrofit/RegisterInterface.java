@@ -10,4 +10,7 @@ import retrofit2.http.POST;
 public interface RegisterInterface {
     @POST("register")
     Call<Object> register(@Body UserModel user);
+
+    @POST("process")
+    Call<Object> process(@Body String email);
 }

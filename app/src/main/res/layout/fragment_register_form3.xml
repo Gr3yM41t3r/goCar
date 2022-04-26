@@ -29,55 +29,56 @@
                 android:src="@drawable/ic_baseline_add_business_24" />
 
             <EditText
-                android:id="@+id/firstnameInput"
+                android:id="@+id/organisationInput"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/custom__input"
                 android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/prenom"
+                android:hint="@string/organisation"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
 
             <EditText
-                android:id="@+id/lastnameInput"
+                android:id="@+id/adresseInput"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/custom__input"
                 android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/nom"
+                android:hint="@string/adresse"
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
 
-            <TextView
-                android:id="@+id/birthDayInput"
+
+            <EditText
+                android:id="@+id/zipCode"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/custom__input"
                 android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/date_de_naissance"
+                android:hint="@string/code_postal"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="@color/lightGray40"/>
+
+            <Spinner
+                android:id="@+id/cityInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/ville"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-
-                android:singleLine="true"
-                android:textColorHint="@color/lightGray40"/>
-            <EditText
-                android:id="@+id/phoneInput"
-                android:layout_width="240dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom__input"
-                android:ellipsize="start"
-                android:gravity="center"
-                android:hint="@string/t_l_phone"
-                android:inputType="phone"
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
 

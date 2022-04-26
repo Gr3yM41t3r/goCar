@@ -4,10 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,20 +16,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.LoginActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.R;
 import com.example.myapplication.RegisterActivity;
-import com.example.myapplication.SaveSharedPreference;
 import com.example.myapplication.constant.Constants;
-import com.example.myapplication.model.Compte;
 import com.example.myapplication.model.UserModel;
-import com.example.myapplication.retrofit.LoginInterface;
 import com.example.myapplication.retrofit.RegisterInterface;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -55,6 +47,7 @@ public class RegisterFormFragment2 extends Fragment {
     CheckBox isPofessionel;
     Bundle bundle;
     private DatePickerDialog datePickerDialog;
+
     public RegisterFormFragment2() {
         // Required empty public constructor
     }
@@ -73,28 +66,31 @@ public class RegisterFormFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_register_form2, container, false);
+        View view = inflater.inflate(R.layout.fragment_register_form2, container, false);
         bundle = this.getArguments();
         initDatePicker();
-        previous_form= view.findViewById(R.id.back_form);
-        birthDayPicker= view.findViewById(R.id.birthDayInput);
-        firstName= view.findViewById(R.id.firstnameInput);
-        lastName= view.findViewById(R.id.lastnameInput);
-        phoneNumber= view.findViewById(R.id.phoneInput);
-        isPofessionel= view.findViewById(R.id.userStatusCheckbox);
+        previous_form = view.findViewById(R.id.back_form);
+        birthDayPicker = view.findViewById(R.id.birthDayInput);
+        firstName = view.findViewById(R.id.firstnameInput);
+        lastName = view.findViewById(R.id.lastnameInput);
+        phoneNumber = view.findViewById(R.id.phoneInput);
+        isPofessionel = view.findViewById(R.id.userStatusCheckbox);
 
-        confirmRegister= view.findViewById(R.id.confirm_register);
+        confirmRegister = view.findViewById(R.id.confirm_register);
         confirmRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isPofessionel.isChecked()){
+                if (isPofessionel.isChecked()) {
                     nextFragment(new RegisterFormFragment3());
 
-                }else {
+                } else {
                     UserModel userModel = new UserModel(firstName.getText().toString(),
                             lastName.getText().toString(),
                             birthDayPicker.getText().toString(),
-                            phoneNumber.getText().toString()
+                            phoneNumber.getText().toString(),
+                            "0",
+                            bundle.getString("email"),
+                            bundle.getString("password")
                     );
                     sendNetworkRequest(userModel);
                 }
@@ -119,16 +115,17 @@ public class RegisterFormFragment2 extends Fragment {
 
         return view;
     }
-    public void nextFragment(Fragment fragment){
+
+    public void nextFragment(Fragment fragment) {
         ((RegisterActivity) this.requireActivity()).setFragment(fragment);
     }
 
-    private void initDatePicker(){
+    private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String date = day+"/"+ month +"/"+year;
+                String date = day + "/" + month + "/" + year;
                 birthDayPicker.setText(date);
             }
         };
@@ -140,48 +137,36 @@ public class RegisterFormFragment2 extends Fragment {
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
-    public void openDatePicker(View view)
-    {
+
+    public void openDatePicker(View view) {
         datePickerDialog.show();
     }
 
-    public void back(){
+    public void back() {
         ((RegisterActivity) this.getActivity()).back();
     }
 
-    private void sendNetworkRequest(UserModel user){
+    private void sendNetworkRequest(UserModel user) {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
         Log.e("TAG", (gson.toJson(user)));
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(Constants.URL+"api/goCar/")
+                .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         RegisterInterface register = retrofit.create(RegisterInterface.class);
-        Call<Object> call =register.register(user);
+        Call<Object> call = register.register(user);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
-                // assert response.body() != null;
-                try {
-                    if(response.code() ==200){
-                        String s = response.body().toString();
-                        JSONObject jsonObject = new JSONObject(s);
-                        jsonObject = new JSONObject(String.valueOf(jsonObject));
-                        Log.e("aaaaaaaaa",jsonObject.toString());
-                        Log.e("aaaaaaaaa",new JSONObject(jsonObject.getString("data")).getString("email"));
-                        Toast.makeText(getContext(),"Logged In",Toast.LENGTH_LONG).show();
-                        SaveSharedPreference.setUsersEmail(getContext(),new JSONObject(jsonObject.getString("data")).getString("email"));
-                    }else {
-                        Toast.makeText(getContext(),"Error Repeat Again",Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (response.code() == 200) {
+                    Toast.makeText(getContext(), "nice", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "an Erroe has occuured", Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(),"Service Indisponible",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Service Indisponible", Toast.LENGTH_LONG).show();
             }
         });
     }

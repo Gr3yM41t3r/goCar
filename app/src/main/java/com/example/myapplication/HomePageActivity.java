@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.myapplication.Fragments.BlankFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class HomePageActivity extends AppCompatActivity {
 
     @Override
@@ -22,7 +25,11 @@ public class HomePageActivity extends AppCompatActivity {
         setFragment(fm);
         BottomNavigationView navigationView = findViewById(R.id.activity_main_bottom_navigation);
         navigationView.setOnItemSelectedListener(item -> {
-            myClick(item);
+            try {
+                myClick(item);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
             return true;
         });
 
@@ -34,7 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
         t.commit();
     }
 
-    public void myClick(MenuItem item) {
+    public void myClick(MenuItem item) throws GeneralSecurityException, IOException {
         switch (item.getItemId()) {
             case R.id.homePage:
                 Toast.makeText(HomePageActivity.this, "Logged out", Toast.LENGTH_LONG).show();

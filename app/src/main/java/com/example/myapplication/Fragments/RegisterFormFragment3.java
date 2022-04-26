@@ -40,7 +40,6 @@ public class RegisterFormFragment3 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_register_form3, container, false);
         Button previous_form= view.findViewById(R.id.back_form);
-
         previous_form.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

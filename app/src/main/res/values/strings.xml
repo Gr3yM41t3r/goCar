@@ -41,4 +41,8 @@
     <string name="confirmer">confirmer</string>
     <string name="date_de_naissance">date de naissance</string>
     <string name="professionel">professionel</string>
+    <string name="organisation">organisation</string>
+    <string name="adresse">adresse</string>
+    <string name="ville">ville</string>
+    <string name="code_postal">code Postal</string>
 </resources>
