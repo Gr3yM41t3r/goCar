@@ -38,14 +38,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterFormFragment2 extends Fragment {
 
-    TextView birthDayPicker;
-    EditText firstName;
-    EditText lastName;
-    EditText phoneNumber;
-    Button previous_form;
-    Button confirmRegister;
-    CheckBox isPofessionel;
-    Bundle bundle;
+    private TextView birthDayPicker;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText phoneNumber;
+    private Button previous_form;
+    private Button confirmRegister;
+    private CheckBox isPofessionel;
+    private Bundle previousFragBundle;
+    private Bundle nextFragBundle;
     private DatePickerDialog datePickerDialog;
 
     public RegisterFormFragment2() {
@@ -67,7 +68,8 @@ public class RegisterFormFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_form2, container, false);
-        bundle = this.getArguments();
+        previousFragBundle = this.getArguments();
+        nextFragBundle = new Bundle();
         initDatePicker();
         previous_form = view.findViewById(R.id.back_form);
         birthDayPicker = view.findViewById(R.id.birthDayInput);
@@ -75,22 +77,29 @@ public class RegisterFormFragment2 extends Fragment {
         lastName = view.findViewById(R.id.lastnameInput);
         phoneNumber = view.findViewById(R.id.phoneInput);
         isPofessionel = view.findViewById(R.id.userStatusCheckbox);
-
         confirmRegister = view.findViewById(R.id.confirm_register);
         confirmRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isPofessionel.isChecked()) {
-                    nextFragment(new RegisterFormFragment3());
-
+                    Fragment form3 = new RegisterFormFragment3();
+                    nextFragBundle.putString("lastname", lastName.getText().toString());
+                    nextFragBundle.putString("firstname", firstName.getText().toString());
+                    nextFragBundle.putString("birthday", birthDayPicker.getText().toString());
+                    nextFragBundle.putString("phoneNumber", phoneNumber.getText().toString());
+                    nextFragBundle.putString("accountType", "1");
+                    nextFragBundle.putString("email", previousFragBundle.getString("email"));
+                    nextFragBundle.putString("password", previousFragBundle.getString("password"));
+                    form3.setArguments(nextFragBundle);
+                    nextFragment(form3);
                 } else {
                     UserModel userModel = new UserModel(firstName.getText().toString(),
                             lastName.getText().toString(),
                             birthDayPicker.getText().toString(),
                             phoneNumber.getText().toString(),
                             "0",
-                            bundle.getString("email"),
-                            bundle.getString("password")
+                            previousFragBundle.getString("email"),
+                            previousFragBundle.getString("password")
                     );
                     sendNetworkRequest(userModel);
                 }
@@ -102,7 +111,6 @@ public class RegisterFormFragment2 extends Fragment {
         birthDayPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openDatePicker(view);
             }
         });
@@ -116,10 +124,8 @@ public class RegisterFormFragment2 extends Fragment {
         return view;
     }
 
-    public void nextFragment(Fragment fragment) {
-        ((RegisterActivity) this.requireActivity()).setFragment(fragment);
-    }
 
+    //***************************** Fragments Init************************
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -142,9 +148,18 @@ public class RegisterFormFragment2 extends Fragment {
         datePickerDialog.show();
     }
 
+    //***************************** Navigation************************
+
+
     public void back() {
         ((RegisterActivity) this.getActivity()).back();
     }
+
+    public void nextFragment(Fragment fragment) {
+        ((RegisterActivity) this.requireActivity()).setFragment(fragment);
+    }
+
+    //***************************** Communication************************
 
     private void sendNetworkRequest(UserModel user) {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
@@ -154,7 +169,7 @@ public class RegisterFormFragment2 extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         RegisterInterface register = retrofit.create(RegisterInterface.class);
-        Call<Object> call = register.register(user);
+        Call<Object> call = register.registerParticulier(user);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
@@ -164,6 +179,7 @@ public class RegisterFormFragment2 extends Fragment {
                     Toast.makeText(getContext(), "an Erroe has occuured", Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 Toast.makeText(getContext(), "Service Indisponible", Toast.LENGTH_LONG).show();

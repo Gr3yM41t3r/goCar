@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.myapplication.Fragments.RegisterFormFragment1;
+import com.example.myapplication.Fragments.RegisterFormFragment3;
 
 public class RegisterActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -15,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        fm = new RegisterFormFragment1();
+        fm = new RegisterFormFragment3();
         setFragment(fm);
     }
 
@@ -38,4 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
+
 }
