@@ -46,14 +46,18 @@ public class LoginActivity extends AppCompatActivity {
                 String emailValue = email.getText().toString();
                 String passwordValue = password.getText().toString();
                 if (TextUtils.isEmpty(emailValue) || TextUtils.isEmpty(passwordValue)) {
-                    email.setError("requis");
-                    password.setError("requis");
+                    if ((TextUtils.isEmpty(emailValue))) {
+                        email.setError(getString(R.string.email_required));
+                    }
+                    if ((TextUtils.isEmpty(passwordValue))) {
+                        password.setError(getString(R.string.password_required));
+                    }
                 } else {
                     if (isEmailValid(emailValue)) {
                         Compte compte = new Compte(emailValue, passwordValue);
-                        sendNetworkRequest(compte);
+                        loginUser(compte);
                     } else {
-                        email.setError("email invalide");
+                        email.setError(getString(R.string.invalid_email));
                     }
                 }
             }
@@ -73,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    private void sendNetworkRequest(Compte compte) {
+
+    //*******************Network Communication**********************************
+    private void loginUser(Compte compte) {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -81,25 +87,21 @@ public class LoginActivity extends AppCompatActivity {
         LoginInterface login = retrofit.create(LoginInterface.class);
         Call<Object> call = login.login(compte);
         ProgressDialog progressDoalog = new ProgressDialog(LoginActivity.this);
-        progressDoalog.setMessage("please wait");
-        progressDoalog.setTitle("connection en cours");
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
         progressDoalog.show();
         call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 try {
                     if (response.code() == 200) {
                         assert response.body() != null;
-                        String s = response.body().toString();
-                        JSONObject jsonObject = new JSONObject(s);
-                        jsonObject = new JSONObject(String.valueOf(jsonObject));
-                        Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_LONG).show();
-                        SaveSharedPreference.setUsersEmail(LoginActivity.this, new JSONObject(jsonObject.getString("data")).getString("email"));
+                        JSONObject jsonObject = new JSONObject(response.body().toString());
+                        SaveSharedPreference.setUsersEmail(LoginActivity.this, jsonObject.getString("data"));
                         progressDoalog.dismiss();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Error Repeat Again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();
                         progressDoalog.dismiss();
-
                     }
                 } catch (JSONException | IOException | GeneralSecurityException e) {
                     e.printStackTrace();
@@ -107,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Service Indisponible", Toast.LENGTH_LONG).show();
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable throwable) {
+                Toast.makeText(LoginActivity.this, getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                 progressDoalog.dismiss();
             }
         });

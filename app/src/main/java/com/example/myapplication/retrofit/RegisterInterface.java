@@ -15,7 +15,7 @@ public interface RegisterInterface {
     @POST("register/professionel")
     Call<Object> registerProfessionel(@Body Organisation organisation);
 
-    @POST("process")
+    @POST("checkemail")
     Call<Object> process(@Body String email);
 
     @POST("register/professionel/getcity")

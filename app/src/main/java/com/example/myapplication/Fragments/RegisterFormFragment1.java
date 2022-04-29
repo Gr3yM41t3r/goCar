@@ -1,8 +1,12 @@
 package com.example.myapplication.Fragments;
 
+import android.app.ProgressDialog;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.TransitionInflater;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +71,16 @@ public class RegisterFormFragment1 extends Fragment {
                 confirmPasswordValue = confirmPassword.getText().toString();
                 emailValue = email.getText().toString();
                 if (TextUtils.isEmpty(emailValue) || TextUtils.isEmpty(passwordValue) || TextUtils.isEmpty(confirmPasswordValue)) {
-                    email.setError("requis");
-                    password.setError("requis");
-                    confirmPassword.setError("requis");
+                    if ((TextUtils.isEmpty(emailValue))) {
+                        email.setError(getString(R.string.email_required));
+                    }
+                    if ((TextUtils.isEmpty(passwordValue))) {
+                        password.setError(getString(R.string.password_required));
+                    }
+                    if ((TextUtils.isEmpty(confirmPasswordValue))) {
+                        confirmPassword.setError(getString(R.string.password_required));
+                    }
+
 
                 } else {
                     if (isEmailValid(emailValue)) {
@@ -77,7 +88,7 @@ public class RegisterFormFragment1 extends Fragment {
 
                             if (passwordValue.equals(confirmPasswordValue)) {
                                 try {
-                                    sendNetworkRequest(emailValue);
+                                    checkIfEmailExists(emailValue);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -89,7 +100,7 @@ public class RegisterFormFragment1 extends Fragment {
                             password.setError("password should be at least 8 caracters");
                         }
                     } else {
-                        email.setError("email format not correct");
+                        email.setError(getString(R.string.invalid_email));
                     }
                 }
             }
@@ -110,11 +121,11 @@ public class RegisterFormFragment1 extends Fragment {
 
 
     public boolean isEmailValid(CharSequence email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 
-    private void sendNetworkRequest(String emailtxt) throws JSONException {
+    private void checkIfEmailExists(String emailtxt) throws JSONException {
 
         JSONObject paramObject = new JSONObject();
         paramObject.put("email", emailtxt);
@@ -124,23 +135,30 @@ public class RegisterFormFragment1 extends Fragment {
         Retrofit retrofit = builder.build();
         RegisterInterface register = retrofit.create(RegisterInterface.class);
         Call<Object> call = register.process(paramObject.toString());
+        ProgressDialog progressDoalog = new ProgressDialog(this.getActivity());
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
+        progressDoalog.show();
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
+                Log.e("jhlkjl",String.valueOf(response.code()));
                 if (response.code() == 200) {
+                    progressDoalog.dismiss();
                     nextFragment(next_form_frame);
                     sendBundle(next_form_frame, emailValue, passwordValue);
                 } else if (response.code() == 400) {
-                    Toast.makeText(getContext(), "an error has occured", Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(), "email Already Exists", Toast.LENGTH_LONG).show();
-                    email.setError("email Existant");
+                    progressDoalog.dismiss();
+                    email.setError(getString(R.string.email_already_exist));
                 }
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "an error has occured ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),  getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
             }
         });
     }

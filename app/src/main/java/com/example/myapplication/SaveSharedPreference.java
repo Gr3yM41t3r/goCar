@@ -32,7 +32,7 @@ public class SaveSharedPreference
 
 
     static SharedPreferences getSharedPreferences(Context ctx) throws GeneralSecurityException, IOException {
-        final SharedPreferences secret_shared_prefs = EncryptedSharedPreferences.create(
+        SharedPreferences secret_shared_prefs = EncryptedSharedPreferences.create(
                 "secret_shared_prefs",
                 masterKeyAlias,
                 ctx,

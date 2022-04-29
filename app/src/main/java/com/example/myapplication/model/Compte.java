@@ -24,4 +24,12 @@ public class Compte {
     public void setMotDePasse(String motDePasse) {
         this.password = motDePasse;
     }
+
+    @Override
+    public String toString() {
+        return "Compte{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

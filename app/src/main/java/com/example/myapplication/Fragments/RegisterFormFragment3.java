@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.LoginActivity;
@@ -51,7 +52,7 @@ public class RegisterFormFragment3 extends Fragment {
     private EditText orgranisation;
     private EditText adresse;
     private EditText zipCode;
-    private EditText city;
+    private TextView city;
 
     public RegisterFormFragment3() {
         // Required empty public constructor
@@ -95,10 +96,18 @@ public class RegisterFormFragment3 extends Fragment {
                 String zipcodeValue =zipCode.getText().toString();
                 String cityValue =city.getText().toString();
                 if(TextUtils.isEmpty(organisationValue) || TextUtils.isEmpty(adresseValue) || TextUtils.isEmpty(zipcodeValue)|| TextUtils.isEmpty(cityValue)) {
-                    orgranisation.setError("requis");
-                    adresse.setError("requis");
-                    zipCode.setError("requis");
-                    city.setError("requis");
+                    if(TextUtils.isEmpty(organisationValue)){
+                        orgranisation.setError("requis");
+                    }
+                    if(TextUtils.isEmpty(organisationValue)){
+                        adresse.setError("requis");
+                    }
+                    if(TextUtils.isEmpty(organisationValue)){
+                        zipCode.setError("requis");
+                    }
+                    if(TextUtils.isEmpty(organisationValue)){
+                        city.setError("requis");
+                    }
                 }else {
                     Organisation organisation = new Organisation(bundle.get("firstname").toString(),
                             bundle.get("lastname").toString(),
@@ -111,7 +120,7 @@ public class RegisterFormFragment3 extends Fragment {
                             adresseValue,
                             zipcodeValue,
                             cityValue);
-                    sendNetworkRequest(organisation);
+                    register(organisation);
                 }
             }
         });
@@ -145,14 +154,13 @@ public class RegisterFormFragment3 extends Fragment {
         ((RegisterActivity) this.getActivity()).back();
     }
 
-    public void gotToLogin(){
+    public void goToLogin(){
         ((RegisterActivity) this.getActivity()).finish();
     }
 
 
-    private void sendNetworkRequest(Organisation organisation) {
+    private void register(Organisation organisation) {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
-        Log.e("TAG", (gson.toJson(organisation)));
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -160,31 +168,29 @@ public class RegisterFormFragment3 extends Fragment {
         RegisterInterface register = retrofit.create(RegisterInterface.class);
         Call<Object> call = register.registerProfessionel(organisation);
         ProgressDialog progressDoalog = new ProgressDialog(this.getActivity());
-        progressDoalog.setMessage("please wait");
-        progressDoalog.setTitle("connection en cours");
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
         progressDoalog.show();
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(getContext(), "nice", Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                    goToLogin();
                 } else {
-                    Toast.makeText(getContext(), "an Erroe has occuured", Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                 }
-                progressDoalog.dismiss();
-                gotToLogin();
             }
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "Service Indisponible", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                 progressDoalog.dismiss();
-
             }
         });
     }
 
     private void getCityName(String emailtxt) throws JSONException {
-
         JSONObject paramObject = new JSONObject();
         paramObject.put("zipcode", emailtxt);
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -201,11 +207,9 @@ public class RegisterFormFragment3 extends Fragment {
                     assert response.body() != null;
                     String s = response.body().toString();
                     JSONObject jsonObject = new JSONObject(s);
-                   //jsonObject = new JSONObject(String.valueOf(jsonObject));
                     city.setText(jsonObject.getString("data").replace("_"," "));
-
                 }  else {
-                    Toast.makeText(getContext(), "email Already Exists", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.city_not_found), Toast.LENGTH_LONG).show();
                 }
                 } catch (JSONException  e) {
                     e.printStackTrace();
@@ -213,7 +217,7 @@ public class RegisterFormFragment3 extends Fragment {
             }
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "an error has occured ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.error_getting_city), Toast.LENGTH_LONG).show();
             }
         });
     }

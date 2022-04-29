@@ -3,7 +3,9 @@ package com.example.myapplication.Fragments;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,28 +83,55 @@ public class RegisterFormFragment2 extends Fragment {
         confirmRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isPofessionel.isChecked()) {
-                    Fragment form3 = new RegisterFormFragment3();
-                    nextFragBundle.putString("lastname", lastName.getText().toString());
-                    nextFragBundle.putString("firstname", firstName.getText().toString());
-                    nextFragBundle.putString("birthday", birthDayPicker.getText().toString());
-                    nextFragBundle.putString("phoneNumber", phoneNumber.getText().toString());
-                    nextFragBundle.putString("accountType", "1");
-                    nextFragBundle.putString("email", previousFragBundle.getString("email"));
-                    nextFragBundle.putString("password", previousFragBundle.getString("password"));
-                    form3.setArguments(nextFragBundle);
-                    nextFragment(form3);
+                String firstnameValue=firstName.getText().toString();
+                String lastNameValue=lastName.getText().toString();
+                String birthDayValue=birthDayPicker.getText().toString();
+                String phoneNumberValue=phoneNumber.getText().toString();
+
+                if (TextUtils.isEmpty(firstnameValue) ||
+                        TextUtils.isEmpty(lastNameValue) ||
+                        TextUtils.isEmpty(birthDayValue) ||
+                        TextUtils.isEmpty(phoneNumberValue)) {
+                    if(TextUtils.isEmpty(firstnameValue)){
+                        firstName.setError(getString(R.string.required));
+                    }
+                    if(TextUtils.isEmpty(lastNameValue)){
+                        lastName.setError(getString(R.string.required));
+                    }
+                    if(TextUtils.isEmpty(phoneNumberValue)){
+                        birthDayPicker.setError(getString(R.string.required));
+                    }
+                    if(TextUtils.isEmpty(firstnameValue)){
+                        phoneNumber.setError(getString(R.string.required));
+                    }
+
                 } else {
-                    UserModel userModel = new UserModel(firstName.getText().toString(),
-                            lastName.getText().toString(),
-                            birthDayPicker.getText().toString(),
-                            phoneNumber.getText().toString(),
-                            "0",
-                            previousFragBundle.getString("email"),
-                            previousFragBundle.getString("password")
-                    );
-                    sendNetworkRequest(userModel);
+                    if (isPofessionel.isChecked()) {
+                        Fragment form3 = new RegisterFormFragment3();
+                        nextFragBundle.putString("lastname", lastName.getText().toString());
+                        nextFragBundle.putString("firstname", firstName.getText().toString());
+                        nextFragBundle.putString("birthday", birthDayPicker.getText().toString());
+                        nextFragBundle.putString("phoneNumber", phoneNumber.getText().toString());
+                        nextFragBundle.putString("accountType", "1");
+                        nextFragBundle.putString("email", previousFragBundle.getString("email"));
+                        nextFragBundle.putString("password", previousFragBundle.getString("password"));
+                        form3.setArguments(nextFragBundle);
+                        nextFragment(form3);
+                    } else {
+                        UserModel userModel = new UserModel(
+                                firstName.getText().toString(),
+                                lastName.getText().toString(),
+                                birthDayPicker.getText().toString(),
+                                phoneNumber.getText().toString(),
+                                "0",
+                                previousFragBundle.getString("email"),
+                                previousFragBundle.getString("password")
+                        );
+                        sendNetworkRequest(userModel);
+                    }
+
                 }
+
 
             }
         });
@@ -159,7 +188,11 @@ public class RegisterFormFragment2 extends Fragment {
         ((RegisterActivity) this.requireActivity()).setFragment(fragment);
     }
 
-    //***************************** Communication************************
+    public void goToLogin() {
+        this.getActivity().finish();
+    }
+
+    //***************************** Network Communication************************
 
     private void sendNetworkRequest(UserModel user) {
         Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
@@ -170,19 +203,27 @@ public class RegisterFormFragment2 extends Fragment {
         Retrofit retrofit = builder.build();
         RegisterInterface register = retrofit.create(RegisterInterface.class);
         Call<Object> call = register.registerParticulier(user);
+        ProgressDialog progressDoalog = new ProgressDialog(this.getActivity());
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
+        progressDoalog.show();
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(getContext(), "nice", Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                    goToLogin();
+
                 } else {
-                    Toast.makeText(getContext(), "an Erroe has occuured", Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(getContext(), "Service Indisponible", Toast.LENGTH_LONG).show();
+                progressDoalog.dismiss();
+                Toast.makeText(getContext(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
             }
         });
     }

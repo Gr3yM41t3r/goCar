@@ -4,128 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/ic_login_ui_2a"
+    android:orientation="vertical"
     tools:context=".LoginActivity">
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="330dp"
-            android:layout_height="470dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="180dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="330dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="180dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_person_gray_36"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    />
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_baseline_person_gray_36" />
 
-                <EditText
-                    android:id="@+id/emailInput"
-                    android:gravity="center"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/custom__input"
-                    android:ellipsize="start"
-                    android:inputType="textEmailAddress"
-                    android:hint="@string/email"
-                    android:textColorHint="@color/lightGray40"
-                    android:singleLine="true"
-                    >
-                </EditText>
+            <EditText
+                android:id="@+id/emailInput"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom__input"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColorHint="@color/lightGray40" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/passwordInput"
-                    android:gravity="center"
                     android:layout_width="240dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/custom__input"
                     android:ellipsize="start"
+                    android:gravity="center"
                     android:hint="@string/mot_de_passe"
                     android:inputType="textPassword"
-                    android:textColorHint="@color/lightGray40"
                     android:singleLine="true"
-                    >
-                </EditText>
-
-                <Button
-                    android:id="@+id/login"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:layout_width="160dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/custom_button_orange"
-                    android:textColor="@color/white"
-                    android:text="@string/se_connecter"
-                    >
-                </Button>
-
-                <TextView
-                    android:gravity="center"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:ellipsize="start"
-                    android:hint="@string/o_connectez_vous_avec"
                     android:textColorHint="@color/lightGray40"
                     />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:src="@drawable/ic_icons8_logo_google_orange"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/login"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_button_orange"
+                android:gravity="center"
+                android:text="@string/se_connecter"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:hint="@string/o_connectez_vous_avec"
+                android:textColorHint="@color/lightGray40" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:src="@drawable/ic_icons8_logo_google_orange" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
 
         >
+
         <TextView
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:ellipsize="start"
+            android:gravity="center"
             android:hint="@string/vous_n_avez_pas_de_compte"
-            android:textColorHint="@color/lightGray40"
-            />
+            android:textColorHint="@color/lightGray40" />
+
         <TextView
             android:id="@+id/signUp"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:ellipsize="start"
+            android:gravity="center"
             android:text="@string/s_enregistrer"
-            android:textColor="@color/red"
-            />
+            android:textColor="@color/red" />
 
     </LinearLayout>
-
-
-
 
 
 
