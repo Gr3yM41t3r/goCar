@@ -77,6 +77,17 @@ public class LoginActivity extends AppCompatActivity {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    public void successfulLogin(){
+        finish();
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
 
     //*******************Network Communication**********************************
     private void loginUser(Compte compte) {
@@ -99,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
                         SaveSharedPreference.setUsersEmail(LoginActivity.this, jsonObject.getString("data"));
                         progressDoalog.dismiss();
+                        successfulLogin();
                     } else {
                         Toast.makeText(LoginActivity.this, getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();
                         progressDoalog.dismiss();

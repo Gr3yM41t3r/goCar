@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/ic_baseline_message_24"
+            android:title="@string/messagerie" />
+        <item
+            android:id="@+id/nav_favourite"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="@string/favoris" />
+        <item
+            android:id="@+id/nav_add"
+            android:icon="@drawable/upload_48px"
+            android:title="@string/d_poser_votre_annonce" />
+
+
+    </group>
+
+    <item
+        android:title="@string/compte">
+        <menu>
+            <item
+                android:id="@+id/account"
+                android:icon="@drawable/ic_baseline_person_56"
+                android:title="@string/mon_compte" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/logout_48px"
+                android:title="@string/d_connexion" />
+
+        </menu>
+    </item>
+
+
+</menu>

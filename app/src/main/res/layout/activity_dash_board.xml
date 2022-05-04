@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".HomePageActivity">
+
+    tools:context=".DashBoardActivity">
 
 
     <FrameLayout
@@ -20,11 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/activity_main_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/lightGray"
+        android:background="#F16D04"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
