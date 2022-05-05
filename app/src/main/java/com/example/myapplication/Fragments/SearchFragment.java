@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.myapplication.DashBoardActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.constant.Constants;
 import com.example.myapplication.retrofit.RegisterInterface;
@@ -88,6 +89,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String s = resultListView.getItemAtPosition(i).toString();
+                Fragment searchFragment = new SearchResultsFragment();
+                ((DashBoardActivity) requireActivity()).setFragment(searchFragment);
                 Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
             }
         });

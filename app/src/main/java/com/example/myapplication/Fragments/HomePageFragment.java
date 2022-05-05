@@ -145,6 +145,7 @@ public class HomePageFragment extends Fragment {
         fuel.setText(fl);
         productionyear.setText(prdyr);
         mainImage.setImageBitmap(bm);
+
         horizontal.addView(cardview);
     }
 
@@ -179,9 +180,7 @@ public class HomePageFragment extends Fragment {
                                     jsobj.getString("productionyear"),
                                     bitmap
                                     );
-
                         }
-
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();
                     }

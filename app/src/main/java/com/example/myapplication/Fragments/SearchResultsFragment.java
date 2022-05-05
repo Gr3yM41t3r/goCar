@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 
 public class SearchResultsFragment extends Fragment {
 
+    ShimmerFrameLayout shimmerFrameLayout;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -29,6 +31,8 @@ public class SearchResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_results, container, false);
+        shimmerFrameLayout =view.findViewById(R.id.shimmer);
+        shimmerFrameLayout.startShimmer();
 
 
         return view;

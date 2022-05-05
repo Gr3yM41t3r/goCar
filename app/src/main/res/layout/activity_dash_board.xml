@@ -27,7 +27,7 @@
         android:id="@+id/activity_main_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="#F16D04"
+        android:background="#68448C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
