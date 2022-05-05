@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DashBoardActivity;
+import com.example.myapplication.ImageResizer;
 import com.example.myapplication.LoginActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.RegisterActivity;
@@ -173,13 +174,14 @@ public class HomePageFragment extends Fragment {
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
                             byte[] backToBytes = Base64.getDecoder().decode(cars.getJSONObject(i).getString("photo"));
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
+                            Bitmap reduce = ImageResizer.reduceBitmapSize(bitmap,340000);
                             fillCarList(jsobj.getString("type"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
                                     jsobj.getString("productionyear"),
-                                    bitmap
-                                    );
+                                    reduce
+                            );
                         }
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();

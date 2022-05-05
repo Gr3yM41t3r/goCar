@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.2388157894736842" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/bottom_nav_menu.xml" value="0.534" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout-v23/activity_home_page.xml" value="0.31354166666666666" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/activity_hom_page.xml" value="0.5541666666666667" />
@@ -11,7 +12,10 @@
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout/fragment_blank.xml" value="0.37924438067910093" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4433518597691321" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.4548952543822146" />
-        <entry key="app/src/main/res/drawable/background_gradiant.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable-v24/logout-48px.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable-v24/logout_48px.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable-v24/upload_48px.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable/background_gradiant.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/custom__input.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/custom_button_orange.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/custom_button_pink.xml" value="0.321875" />
@@ -19,32 +23,31 @@
         <entry key="app/src/main/res/drawable/ic_baseline_add_business_24.xml" value="0.3469055374592834" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/ic_icons8_logo_google.xml" value="0.32916666666666666" />
-        <entry key="app/src/main/res/drawable/ic_icons8_logo_google_orange.xml" value="0.255" />
         <entry key="app/src/main/res/drawable/ic_icons8_logo_google_pink.xml" value="0.321875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3703125" />
-        <entry key="app/src/main/res/drawable/ic_login_ui_2a.xml" value="0.2015" />
-        <entry key="app/src/main/res/drawable/ic_register_ui_2b.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/ic_register_ui_2b.xml" value="0.3703125" />
         <entry key="app/src/main/res/drawable/main_gradiant.xml" value="0.32916666666666666" />
-        <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.2015" />
-        <entry key="app/src/main/res/layout/activity_dash_board.xml" value="0.35733695652173914" />
+        <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/layout/activity_dash_board.xml" value="0.27598684210526314" />
         <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.5385416666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5385416666666667" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3541666666666667" />
-        <entry key="app/src/main/res/layout/big_cardview_car.xml" value="0.35733695652173914" />
-        <entry key="app/src/main/res/layout/big_cardview_car_shimmer.xml" value="0.35733695652173914" />
+        <entry key="app/src/main/res/layout/big_cardview_car.xml" value="0.27598684210526314" />
+        <entry key="app/src/main/res/layout/big_cardview_car_shimmer.xml" value="0.3401315789473684" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.5385416666666667" />
-        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.35733695652173914" />
+        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.27598684210526314" />
         <entry key="app/src/main/res/layout/fragment_register_form1.xml" value="0.30572916666666666" />
         <entry key="app/src/main/res/layout/fragment_register_form2.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_register_form3.xml" value="0.3401315789473684" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.35733695652173914" />
-        <entry key="app/src/main/res/layout/fragment_search_results.xml" value="0.35733695652173914" />
-        <entry key="app/src/main/res/layout/sidebar_header.xml" value="0.35733695652173914" />
-        <entry key="app/src/main/res/layout/small_cardview_car.xml" value="0.35733695652173914" />
-        <entry key="app/src/main/res/layout/small_cardview_car_shimmer.xml" value="0.35733695652173914" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.22894736842105262" />
+        <entry key="app/src/main/res/layout/fragment_search_results.xml" value="0.3401315789473684" />
+        <entry key="app/src/main/res/layout/sidebar_header.xml" value="0.35460526315789476" />
+        <entry key="app/src/main/res/layout/small_cardview_car.xml" value="0.3401315789473684" />
+        <entry key="app/src/main/res/layout/small_cardview_car_shimmer.xml" value="0.27532894736842106" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.32083333333333336" />
-        <entry key="app/src/main/res/menu/side_bad_menu.xml" value="0.3651041666666667" />
+        <entry key="app/src/main/res/menu/side_bad_menu.xml" value="0.3401315789473684" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24901315789473685" />
       </map>
     </option>
   </component>
