@@ -142,7 +142,6 @@ public class RegisterFormFragment1 extends Fragment {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
-                Log.e("jhlkjl",String.valueOf(response.code()));
                 if (response.code() == 200) {
                     progressDoalog.dismiss();
                     nextFragment(next_form_frame);
@@ -155,7 +154,6 @@ public class RegisterFormFragment1 extends Fragment {
                     email.setError(getString(R.string.email_already_exist));
                 }
             }
-
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 Toast.makeText(getContext(),  getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();

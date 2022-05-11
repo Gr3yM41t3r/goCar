@@ -90,11 +90,17 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String s = resultListView.getItemAtPosition(i).toString();
                 Fragment searchFragment = new SearchResultsFragment();
+                sendBundle(searchFragment,s);
                 ((DashBoardActivity) requireActivity()).setFragment(searchFragment);
                 Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
             }
         });
         return view;
+    }
+    public void sendBundle(Fragment fragment, String keyword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("keyword", keyword);
+        fragment.setArguments(bundle);
     }
 
     private void getSearchResult(String keyword) throws JSONException {

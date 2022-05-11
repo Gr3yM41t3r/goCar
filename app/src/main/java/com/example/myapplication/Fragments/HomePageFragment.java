@@ -1,10 +1,7 @@
 package com.example.myapplication.Fragments;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,34 +12,29 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.transition.TransitionInflater;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DashBoardActivity;
-import com.example.myapplication.ImageResizer;
-import com.example.myapplication.LoginActivity;
+import com.example.myapplication.Utility.ImageResizer;
 import com.example.myapplication.R;
-import com.example.myapplication.RegisterActivity;
-import com.example.myapplication.SaveSharedPreference;
+import com.example.myapplication.Utility.SaveSharedPreference;
 import com.example.myapplication.constant.Constants;
-import com.example.myapplication.model.Compte;
+import com.example.myapplication.retrofit.AdvertInterface;
 import com.example.myapplication.retrofit.CarInterface;
-import com.example.myapplication.retrofit.LoginInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +43,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Base64;
-import java.util.Objects;
-import java.util.zip.Inflater;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +51,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends Fragment implements  NavigationView.OnNavigationItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
 
@@ -76,6 +66,7 @@ public class HomePageFragment extends Fragment {
     TextView citadine;
     TextView sport;
     CardView searchbar;
+    NavigationView side_bar_view;
 
 
     public HomePageFragment() {
@@ -112,6 +103,8 @@ public class HomePageFragment extends Fragment {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),sideBar,R.string.an_error_occurred_please_login_again_later,R.string.an_error_occurred_please_login_again_later);
         sideBar.addDrawerListener(toggle);
         toggle.syncState();
+        side_bar_view=view.findViewById(R.id.side_bar_view);
+        side_bar_view.setNavigationItemSelectedListener(this);
         hamburger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,13 +143,15 @@ public class HomePageFragment extends Fragment {
         horizontal.addView(cardview);
     }
 
+
+
     private void getCars() {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        CarInterface car = retrofit.create(CarInterface.class);
-        Call<Object> call = car.getCars();
+        AdvertInterface car = retrofit.create(AdvertInterface.class);
+        Call<Object> call = car.getAdverts();
         shimmerFrameLayout.startShimmer();
         call.enqueue(new Callback<Object>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -168,19 +163,22 @@ public class HomePageFragment extends Fragment {
                         shimmerFrameLayout.setVisibility(View.GONE);
                         assert response.body() != null;
                         JSONObject jsobj;
+                        JSONArray jsonArray;
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray cars = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < cars.length(); i++) {
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
-                            byte[] backToBytes = Base64.getDecoder().decode(cars.getJSONObject(i).getString("photo"));
+                            jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
+                            Log.e("mlkjllmkj",jsonArray.get(0).toString());
+                            Log.e("amine",String.valueOf(jsonArray.length()));
+                            byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
-                            Bitmap reduce = ImageResizer.reduceBitmapSize(bitmap,340000);
                             fillCarList(jsobj.getString("type"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
                                     jsobj.getString("productionyear"),
-                                    reduce
+                                    bitmap
                             );
                         }
                     } else {
@@ -196,5 +194,22 @@ public class HomePageFragment extends Fragment {
                 Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)   {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                try {
+                    SaveSharedPreference.setUsersEmail(getActivity(), "");
+                    Toast.makeText(getActivity(), "deconnecté", Toast.LENGTH_LONG).show();
+
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+        sideBar.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

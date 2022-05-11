@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.ImageResizer;
+import com.example.myapplication.Utility.ImageResizer;
 import com.example.myapplication.R;
 import com.example.myapplication.constant.Constants;
+import com.example.myapplication.retrofit.AdvertInterface;
 import com.example.myapplication.retrofit.CarInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
@@ -29,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Base64;
-import java.util.zip.Inflater;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,11 +62,20 @@ public class SearchResultsFragment extends Fragment {
         gridLayout= view.findViewById(R.id.mainGrid);
         shimmerFrameLayout =view.findViewById(R.id.shimmer);
         inflater2 = getLayoutInflater();
-        getCars();
+        Bundle previousFragBundle = this.getArguments();
+
+        try {
+            assert previousFragBundle != null;
+            getCars(previousFragBundle.getString("keyword"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         return view;
     }
+
+
 
     public void fillCarList(String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm){
         View cardview= inflater2.inflate(R.layout.small_cardview_car,gridLayout,false);
@@ -84,13 +94,15 @@ public class SearchResultsFragment extends Fragment {
         gridLayout.addView(cardview);
     }
 
-    private void getCars() {
+    private void getCars(String keyword) throws JSONException {
+        JSONObject paramObject = new JSONObject();
+        paramObject.put("keyword", keyword);
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        CarInterface car = retrofit.create(CarInterface.class);
-        Call<Object> call = car.getCars();
+        AdvertInterface car = retrofit.create(AdvertInterface.class);
+        Call<Object> call = car.getadvertbysearch(paramObject.toString());
         shimmerFrameLayout.startShimmer();
         call.enqueue(new Callback<Object>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -102,21 +114,22 @@ public class SearchResultsFragment extends Fragment {
                         shimmerFrameLayout.setVisibility(View.GONE);
                         assert response.body() != null;
                         JSONObject jsobj;
+                        JSONArray jsonArray;
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray cars = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < cars.length(); i++) {
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
-                            byte[] backToBytes = Base64.getDecoder().decode(cars.getJSONObject(i).getString("photo"));
+                            jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
+                            Log.e("mlkjllmkj",jsonArray.get(0).toString());
+                            Log.e("amine",String.valueOf(jsonArray.length()));
+                            byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
-                            Bitmap reduce = ImageResizer.reduceBitmapSize(bitmap,146000);
-
-
                             fillCarList(jsobj.getString("type"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
                                     jsobj.getString("productionyear"),
-                                    reduce
+                                    bitmap
                             );
                         }
                     } else {
