@@ -53,9 +53,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TransitionInflater inflater = TransitionInflater.from(requireContext());
-        setEnterTransition(inflater.inflateTransition(R.transition.slide_left));
-        setExitTransition(inflater.inflateTransition(R.transition.fade));
 
     }
 
@@ -65,7 +62,6 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         searchView = view.findViewById(R.id.seachView);
         resultListView = view.findViewById(R.id.resultListView);
-
         adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
         resultListView.setAdapter(adapter);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

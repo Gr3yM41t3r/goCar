@@ -10,12 +10,14 @@ import androidx.security.crypto.MasterKeys;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Map;
 
 import retrofit2.http.Body;
 
 public class SaveSharedPreference
 {
-    private static final String PREF_EMAIL= "email";
+    private static final String PREF_SESSION_ID= "session_id";
+    private static final String EMAIL= "email";
     private static String masterKeyAlias;
 
     static {
@@ -41,13 +43,27 @@ public class SaveSharedPreference
         return secret_shared_prefs;
     }
 
-    public static void setUsersEmail(Context ctx, String userName) throws GeneralSecurityException, IOException {
+    public static void setSessionId(Context ctx, String sessionid,String email) throws GeneralSecurityException, IOException {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(PREF_EMAIL, userName);
+        editor.putString(PREF_SESSION_ID, sessionid);
+        editor.putString(EMAIL, email);
         editor.apply();
     }
 
     public static Boolean isLogedIn(Context ctx) throws GeneralSecurityException, IOException {
-        return getSharedPreferences(ctx).getString(PREF_EMAIL,"").length()!=0;
+        return getSharedPreferences(ctx).getString(PREF_SESSION_ID,"").length()!=0;
+    }
+
+    public static String getEmail(Context ctx) throws GeneralSecurityException, IOException {
+        String email = getSharedPreferences(ctx).getString("email","");
+        String session_id = getSharedPreferences(ctx).getString("session_id","");
+        Log.e("email",email.toString());
+        Log.e("email",session_id.toString());
+        return email;
+    }
+
+    public static String getSessionId(Context ctx) throws GeneralSecurityException, IOException {
+        return  getSharedPreferences(ctx).getString("session_id","");
+
     }
 }

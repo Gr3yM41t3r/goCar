@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -109,7 +110,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         assert response.body() != null;
                         JSONObject jsonObject = new JSONObject(response.body().toString());
-                        SaveSharedPreference.setUsersEmail(LoginActivity.this, jsonObject.getString("data"));
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        Log.e("----------------",data.getString("sessionid"));
+                        Log.e("bdfgdfgdf",data.getString("email"));
+                        SaveSharedPreference.setSessionId(LoginActivity.this, data.getString("sessionid"), data.getString("email"));
                         progressDoalog.dismiss();
                         successfulLogin();
                     } else {

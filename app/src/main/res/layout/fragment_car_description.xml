@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CarDescription"
+    tools:context=".Fragments.CarDescription"
     android:background="@drawable/background_gradiant">
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -39,6 +39,7 @@
             android:src="@drawable/ic_baseline_share_40" />
 
         <TextView
+            android:id="@+id/carfullmodel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -90,9 +91,9 @@
                     android:layout_height="180dp"
                     android:layout_below="@id/title"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/mercedes"
                     android:padding="1dp"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mercedes" />
 
                 <TextView
                     android:layout_width="wrap_content"

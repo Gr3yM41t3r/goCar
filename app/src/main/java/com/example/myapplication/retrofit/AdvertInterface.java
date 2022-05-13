@@ -14,5 +14,8 @@ public interface AdvertInterface {
     @POST("annonce/getsearchadvert")
     Call<Object> getadvertbysearch(@Body String keyword);
 
+    @POST("annonce/getsinleadvert")
+    Call<Object> getSingleCarDescription(@Body String keyword);
+
 
 }

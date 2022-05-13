@@ -10,8 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.Fragments.HomePageFragment;
+import com.example.myapplication.Fragments.UserProfileFragment;
 import com.example.myapplication.Utility.SaveSharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,20 +46,26 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     public void setFragment(Fragment fragment) {
-
-        fragmentManager.beginTransaction().replace(R.id.flFragment, fragment)
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_right,R.anim.slide_out_left)
+                .replace(R.id.flFragment, fragment).setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
-
-
     }
     @Override
     public void onBackPressed() {
         if (fragmentManager.getBackStackEntryCount() > 1) {
             fragmentManager.popBackStack();
+        //    super.onBackPressed();
         }else {
-            finish();
+            this.finish();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
     }
 
 
@@ -72,8 +80,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 break;
             case R.id.account:
                 if (SaveSharedPreference.isLogedIn(DashBoardActivity.this)) {
-                    Toast.makeText(DashBoardActivity.this, "deja connecté", Toast.LENGTH_LONG).show();
-
+                    Fragment userFragment = new UserProfileFragment();
+                    setFragment(userFragment);
                 } else {
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);

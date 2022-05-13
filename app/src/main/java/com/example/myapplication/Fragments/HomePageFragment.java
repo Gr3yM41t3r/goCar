@@ -2,6 +2,7 @@ package com.example.myapplication.Fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -67,6 +68,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     TextView sport;
     CardView searchbar;
     NavigationView side_bar_view;
+    Fragment carDescription = new CarDescription();
 
 
     public HomePageFragment() {
@@ -78,9 +80,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TransitionInflater inflater = TransitionInflater.from(requireContext());
-        setEnterTransition(inflater.inflateTransition(R.transition.slide_left));
-        setExitTransition(inflater.inflateTransition(R.transition.slide_right));
+
     }
 
 
@@ -88,6 +88,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view =inflater.inflate(R.layout.fragment_home_page, container, false);
         inflater2 = getLayoutInflater();
         horizontal =view.findViewById(R.id.horizontal);
@@ -117,15 +118,21 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             public void onClick(View view) {
                 Fragment searchFragment = new SearchFragment();
                 ((DashBoardActivity) requireActivity()).setFragment(searchFragment);
-
             }
         });
+        new LongRunninTask().execute();
 
-        getCars();
+
         return view;
     }
 
-    public void fillCarList(String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm){
+    public void sendBundle(Fragment fragment, String keyword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("idadvert", keyword);
+        fragment.setArguments(bundle);
+    }
+
+    public void fillCarList(int id,String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm){
         View cardview= inflater2.inflate(R.layout.big_cardview_car,horizontal,false);
         TextView type = cardview.findViewById(R.id.title);
         TextView model = cardview.findViewById(R.id.model);
@@ -139,9 +146,26 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         fuel.setText(fl);
         productionyear.setText(prdyr);
         mainImage.setImageBitmap(bm);
-
+        cardview.setId(id);
+        cardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendBundle(carDescription,String.valueOf(cardview.getId()));
+                ((DashBoardActivity) requireActivity()).setFragment(carDescription);
+            }
+        });
         horizontal.addView(cardview);
     }
+
+    private class LongRunninTask extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            getCars();
+            return null;
+        }
+    }
+
 
 
 
@@ -163,17 +187,20 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                         shimmerFrameLayout.setVisibility(View.GONE);
                         assert response.body() != null;
                         JSONObject jsobj;
+                        JSONObject jsonAdvert;
                         JSONArray jsonArray;
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray cars = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < cars.length(); i++) {
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
+                            jsonAdvert=new JSONObject(cars.getJSONObject(i).getString("advert"));
                             jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
                             Log.e("mlkjllmkj",jsonArray.get(0).toString());
                             Log.e("amine",String.valueOf(jsonArray.length()));
                             byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
-                            fillCarList(jsobj.getString("type"),
+                            fillCarList(jsonAdvert.getInt("id"),
+                                    jsobj.getString("type"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
@@ -201,7 +228,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         switch (item.getItemId()) {
             case R.id.logout:
                 try {
-                    SaveSharedPreference.setUsersEmail(getActivity(), "");
+                    SaveSharedPreference.setSessionId(getActivity(), "","");
                     Toast.makeText(getActivity(), "deconnecté", Toast.LENGTH_LONG).show();
 
                 } catch (GeneralSecurityException | IOException e) {
