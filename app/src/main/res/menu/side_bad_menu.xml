@@ -24,11 +24,11 @@
         android:title="@string/compte">
         <menu>
             <item
-                android:id="@+id/account"
+                android:id="@+id/nav_account"
                 android:icon="@drawable/ic_baseline_person_56"
                 android:title="@string/mon_compte" />
             <item
-                android:id="@+id/logout"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_48px"
                 android:title="@string/d_connexion" />
 

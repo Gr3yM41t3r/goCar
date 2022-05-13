@@ -1,5 +1,7 @@
 package com.example.myapplication.Fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -13,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DashBoardActivity;
+import com.example.myapplication.LoginActivity;
 import com.example.myapplication.Utility.ImageResizer;
 import com.example.myapplication.R;
 import com.example.myapplication.Utility.SaveSharedPreference;
@@ -69,6 +73,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     CardView searchbar;
     NavigationView side_bar_view;
     Fragment carDescription = new CarDescription();
+
 
 
     public HomePageFragment() {
@@ -195,8 +200,6 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
                             jsonAdvert=new JSONObject(cars.getJSONObject(i).getString("advert"));
                             jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
-                            Log.e("mlkjllmkj",jsonArray.get(0).toString());
-                            Log.e("amine",String.valueOf(jsonArray.length()));
                             byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
                             fillCarList(jsonAdvert.getInt("id"),
@@ -223,10 +226,13 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         });
     }
 
+
+
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item)   {
+    @SuppressLint("NonConstantResourceId")
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.logout:
+            case R.id.nav_logout:
                 try {
                     SaveSharedPreference.setSessionId(getActivity(), "","");
                     Toast.makeText(getActivity(), "deconnecté", Toast.LENGTH_LONG).show();
@@ -235,6 +241,29 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                     e.printStackTrace();
                 }
                 break;
+            case R.id.nav_account:
+                try {
+                    if (SaveSharedPreference.isLogedIn(getContext())) {
+                        Fragment userFragment = new UserProfileFragment();
+                        ((DashBoardActivity) requireActivity()).setFragment(userFragment);
+
+                    } else {
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.nav_add:
+                break;
+            case R.id.nav_message:
+                break;
+            case R.id.nav_favourite:
+                Fragment favoritesFragment = new FavoritesFragment();
+                ((DashBoardActivity) requireActivity()).setFragment(favoritesFragment);
+                break;
+
         }
         sideBar.closeDrawer(GravityCompat.START);
         return true;

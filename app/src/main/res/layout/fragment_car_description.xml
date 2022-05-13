@@ -6,264 +6,291 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.CarDescription"
     android:background="@drawable/background_gradiant">
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/side_bar_hamburger"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/citadine"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_share_40" />
-
-        <TextView
-            android:id="@+id/carfullmodel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
-            android:text="Renault Megane 4"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
 
 
-        <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            app:cardBackgroundColor="#345D5067"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="1dp"
-            >
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <include layout="@layout/car_description_shimmer" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/side_bar_hamburger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/citadine"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_baseline_share_40" />
+
+            <TextView
+                android:id="@+id/adverttitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="70dp"
+                android:text="Renault Megane 4"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                app:cardBackgroundColor="#345D5067"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                >
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Paul"
-                    android:textColor="@color/black"
-                    android:textSize="30sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_cards_heart_outline_white_24dp" />
-
-                <ImageView
-                    android:id="@+id/mainImage"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_below="@id/title"
-                    android:adjustViewBounds="true"
-                    android:padding="1dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mercedes" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:fontFamily="@font/poppins_bold"
-                    android:padding="10dp"
-                    android:text="caracterisque"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Paul"
+                        android:textColor="@color/black"
+                        android:textSize="30sp" />
 
-                <TextView
-                    android:id="@+id/marque"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="40dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="marque: mercedes"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_cards_heart_outline_white_24dp" />
 
-                <TextView
-                    android:id="@+id/model"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="60dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="modele :EQS"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/mainImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_below="@id/owner"
+                        android:adjustViewBounds="true"
+                        android:padding="1dp"
+                        android:scaleType="centerCrop"
+                       />
 
-                <TextView
-                    android:id="@+id/yearmode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="Année-modele :2016"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:fontFamily="@font/poppins_bold"
+                        android:padding="10dp"
+                        android:text="caracterisque"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/startservice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="Kilometrage :70000km"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/brand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="marque: mercedes"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/fuel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="120dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="Carburant :Electrique"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="60dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="modele :EQS"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/gearbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="140dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="Boite A vitesse :Automatique"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/yearmode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="80dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Année-modele :2016"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="160dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="Type de vehicule :Berline"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/odometer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="100dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Kilometrage :70000km"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="180dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="couleur :Noire"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/fuel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="120dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Carburant :Electrique"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/numberofdoors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="200dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="nombre de porte :5"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/gearbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="140dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Boite A vitesse :Automatique"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/fisclaPower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="220dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="puissance fiscale :4"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="160dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Type de vehicule :Berline"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/dinPower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="240dp"
-                    android:fontFamily="@font/montserrat_alternates"
-                    android:text="puissance DIN :4"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="180dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="couleur :Noire"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:fontFamily="@font/poppins_bold"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="270dp"
-                    android:text="Description:"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mainImage"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="300dp"
-                    android:text="Description:"
-                    android:textColor="@color/black"
-                    tools:text="@tools:sample/lorem/random"
-                    android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/numberofdoors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="200dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="nombre de porte :5"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/fiscalPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="220dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="puissance fiscale :4"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/dinPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="240dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="puissance DIN :4"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="270dp"
+                        android:text="Description:"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="300dp"
+                        android:text="Description:"
+                        android:textColor="@color/black"
+                        tools:text="@tools:sample/lorem/random"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
 
 
 
