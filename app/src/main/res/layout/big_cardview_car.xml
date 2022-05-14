@@ -28,6 +28,7 @@
                 android:textSize="30sp" />
 
             <ImageView
+                android:id="@+id/favoritebutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -35,7 +36,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_cards_heart_outline_white_24dp" />
+                android:src="@drawable/ic_baseline_favorite_border_52" />
 
             <ImageView
                 android:id="@+id/mainImage"

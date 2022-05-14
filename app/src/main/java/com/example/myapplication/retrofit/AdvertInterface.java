@@ -8,8 +8,8 @@ import retrofit2.http.POST;
 public interface AdvertInterface {
 
 
-    @GET("annonce/getalladvert")
-    Call<Object> getAdverts();
+    @POST("annonce/getalladvert")
+    Call<Object> getAdverts(@Body String usertoken);
 
     @POST("annonce/getsearchadvert")
     Call<Object> getadvertbysearch(@Body String keyword);
