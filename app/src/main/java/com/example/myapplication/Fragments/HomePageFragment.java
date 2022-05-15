@@ -1,8 +1,10 @@
 package com.example.myapplication.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -186,29 +188,50 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             @Override
             public void onClick(View view) {
                 Vibrator vibe = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
-                if (!favorite.isSelected()){
-                    vibe.vibrate(80);
-                    favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_24_red));
-                    favorite.setSelected(true);
-                    try {
-                        Favorites favorites = new Favorites(String.valueOf(cardview.getId()),SaveSharedPreference.getSessionId(getContext()));
-                        new addFavorites().doInBackground(favorites);
-                    } catch (GeneralSecurityException | IOException e) {
-                        e.printStackTrace();
+                try {
+                    if(!SaveSharedPreference.isLogedIn(getContext())){
+
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("bloqué")
+                                .setMessage("you need to login to use this function")
+                                .setPositiveButton(getString(R.string.se_connecter), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null)
+                               // .setIcon(android.R.drawable.)
+                                .show();
+                        vibe.vibrate(80);
+                        return;
                     }
-                }else {
-                    favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_border_52));
-                    vibe.vibrate(80);
-                    favorite.setSelected(false);
-                    Favorites favorites = null;
-                    try {
-                        favorites = new Favorites(String.valueOf(cardview.getId()), SaveSharedPreference.getSessionId(getContext()));
-                    } catch (GeneralSecurityException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (!favorite.isSelected()){
+                        vibe.vibrate(80);
+                        favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_24_red));
+                        favorite.setSelected(true);
+                        try {
+                            Favorites favorites = new Favorites(String.valueOf(cardview.getId()),SaveSharedPreference.getSessionId(getContext()));
+                            new addFavorites().doInBackground(favorites);
+                        } catch (GeneralSecurityException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_border_52));
+                        vibe.vibrate(80);
+                        favorite.setSelected(false);
+                        Favorites favorites = null;
+                        try {
+                            favorites = new Favorites(String.valueOf(cardview.getId()), SaveSharedPreference.getSessionId(getContext()));
+                        } catch (GeneralSecurityException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        new deleteFavorite().doInBackground(favorites);
                     }
-                    new deleteFavorite().doInBackground(favorites);
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

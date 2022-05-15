@@ -12,6 +12,9 @@ public interface FavoritesInterface {
     @POST("favorites/add")
     Call<Object> addFavorites(@Body Favorites favorites);
 
+    @POST("favorites/getusers")
+    Call<Object> getUsersFavorite(@Body String userID);
+
     @POST("favorites/delete")
     Call<Object> deleteFavorites(@Body Favorites favorites);
 }
