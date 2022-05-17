@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.DashBoardActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.Utility.SaveSharedPreference;
 import com.example.myapplication.constant.Constants;
@@ -44,6 +45,7 @@ public class FavoritesFragment extends Fragment {
 
 
     private LinearLayout favoriteContainer;
+    Fragment carDescription = new CarDescription();
 
 
 
@@ -72,6 +74,11 @@ public class FavoritesFragment extends Fragment {
         }
         return view;
     }
+    public void sendBundle(Fragment fragment, String keyword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("idadvert", keyword);
+        fragment.setArguments(bundle);
+    }
 
     public void fillFavoriteContainer(int id, String modelstr ,String odometerstr,Bitmap image){
         View favorite= getLayoutInflater().inflate(R.layout.favorite_cards,favoriteContainer,false);
@@ -82,6 +89,13 @@ public class FavoritesFragment extends Fragment {
         model.setText(modelstr);
         odometer.setText(odometerstr);
         favorite.setId(id);
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendBundle(carDescription,String.valueOf(favorite.getId()));
+                ((DashBoardActivity) requireActivity()).setFragment(carDescription);
+            }
+        });
         favoriteContainer.addView(favorite);
     }
 
@@ -109,17 +123,18 @@ public class FavoritesFragment extends Fragment {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray favorites = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < favorites.length(); i++) {
-
-                            Log.e("jjjjjjjjjjjjjjjjjjj", favorites.getJSONObject(i).getString("price"));
-                            Log.e("jjjjjjjjjjjjjjjjjjj", favorites.getJSONObject(i).getString("title"));
-                            Log.e("jjjjjjjjjjjjjjjjjjj", favorites.getJSONObject(i).getString("price"));
                           //  jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");;
                           //  byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                           //  Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
-                            fillFavoriteContainer(Integer.parseInt(favorites.getJSONObject(i).getString("idfavorite")),
+                           // jsonArray= (JSONArray) favorites.getJSONObject(i).get("photos");
+
+
+                            byte[] backToBytes = Base64.getDecoder().decode(favorites.getJSONObject(i).getString("photos"));
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
+                            fillFavoriteContainer(Integer.parseInt(favorites.getJSONObject(i).getString("idadvert")),
                                                   favorites.getJSONObject(i).getString("title"),
                                                   favorites.getJSONObject(i).getString("price"),
-                                    null
+                                    bitmap
                             );
                         }
                     } else {

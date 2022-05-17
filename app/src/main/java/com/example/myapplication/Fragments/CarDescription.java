@@ -1,5 +1,10 @@
 package com.example.myapplication.Fragments;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.Vibrator;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,9 +28,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.LoginActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.Utility.SaveSharedPreference;
 import com.example.myapplication.constant.Constants;
+import com.example.myapplication.model.Favorites;
 import com.example.myapplication.retrofit.AdvertInterface;
+import com.example.myapplication.retrofit.FavoritesInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 
@@ -32,6 +42,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Base64;
 
 import retrofit2.Call;
@@ -59,6 +71,7 @@ public class CarDescription extends Fragment {
     private TextView dinPower;
     private TextView description;
     private ImageView mainImage;
+    private ImageView favorite;
     private Bundle previousFragBundle;
     ShimmerFrameLayout shimmerFrameLayout;
     RelativeLayout relativeLayout;
@@ -101,12 +114,145 @@ public class CarDescription extends Fragment {
         dinPower= view.findViewById(R.id.dinPower);
         description= view.findViewById(R.id.description);
         mainImage= view.findViewById(R.id.mainImage);
+        favorite= view.findViewById(R.id.favoritebutton);
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Vibrator vibe = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                try {
+                    if(!SaveSharedPreference.isLogedIn(getContext())){
+
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("bloqué")
+                                .setMessage("you need to login to use this function")
+                                .setPositiveButton(getString(R.string.se_connecter), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null)
+                                // .setIcon(android.R.drawable.)
+                                .show();
+                        vibe.vibrate(80);
+                        return;
+                    }
+                    if (!favorite.isSelected()){
+                        vibe.vibrate(80);
+                        favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_24_red));
+                        favorite.setSelected(true);
+                        try {
+                            Favorites favorites = new Favorites(String.valueOf(previousFragBundle.getString("idadvert")),SaveSharedPreference.getSessionId(getContext()));
+                            new CarDescription.addFavorites().doInBackground(favorites);
+                        } catch (GeneralSecurityException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_border_52));
+                        vibe.vibrate(80);
+                        favorite.setSelected(false);
+                        Favorites favorites = null;
+                        try {
+                           favorites = new Favorites(String.valueOf(previousFragBundle.getString("idadvert")), SaveSharedPreference.getSessionId(getContext()));
+                        } catch (GeneralSecurityException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        new CarDescription.deleteFavorite().doInBackground(favorites);
+                    }
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
          new LongRunninTask().execute();
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    private class addFavorites extends AsyncTask<Favorites,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Favorites... favorites) {
+            addFavorite(favorites[0]);
+            return null;
+
+        }
+    }
+
+    private class deleteFavorite extends AsyncTask<Favorites,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Favorites... favorites) {
+            deleteFavorite(favorites[0]);
+            return null;
+
+        }
+    }
+
+    private void addFavorite(Favorites favorites){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(Constants.URL + "api/goCar/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        FavoritesInterface login = retrofit.create(FavoritesInterface.class);
+        Call<Object> call = login.addFavorites(favorites);
+        ProgressDialog progressDoalog = new ProgressDialog(getActivity());
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
+        progressDoalog.show();
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                if (response.code() == 200) {
+                    progressDoalog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable throwable) {
+                Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+                progressDoalog.dismiss();
+            }
+        });
+
+    }
+
+    private void deleteFavorite(Favorites favorites){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(Constants.URL + "api/goCar/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        FavoritesInterface login = retrofit.create(FavoritesInterface.class);
+        Call<Object> call = login.deleteFavorites(favorites);
+        ProgressDialog progressDoalog = new ProgressDialog(getActivity());
+        progressDoalog.setMessage(getString(R.string.please_wait));
+        progressDoalog.setTitle(getString(R.string.connection___));
+        progressDoalog.show();
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                if (response.code() == 200) {
+                    progressDoalog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+                    progressDoalog.dismiss();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable throwable) {
+                Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+                progressDoalog.dismiss();
+            }
+        });
+
+    }
+
 
     @Override
     public void setExitTransition(@Nullable Object transition) {
@@ -121,7 +267,7 @@ public class CarDescription extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 getCarDescription(previousFragBundle.getString("idadvert"));
-            } catch (JSONException e) {
+            } catch (JSONException | GeneralSecurityException | IOException e) {
                 e.printStackTrace();
             };
             return null;
@@ -131,9 +277,10 @@ public class CarDescription extends Fragment {
 
 
 
-    private void getCarDescription(String keyword) throws JSONException {
+    private void getCarDescription(String keyword) throws JSONException, GeneralSecurityException, IOException {
         JSONObject paramObject = new JSONObject();
         paramObject.put("idadvert", keyword);
+        paramObject.put("userid", SaveSharedPreference.getSessionId(getContext()));
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -158,6 +305,8 @@ public class CarDescription extends Fragment {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         jsoncar=jsonObject.getJSONObject("data");
                         jsoncar3= jsoncar.getJSONObject("car");
+                        boolean isfavorite = Boolean.parseBoolean(jsoncar.getString("isfavorite"));
+
                         jsoncar2= new JSONObject(jsoncar.getJSONObject("advert").toString());
                         jsonArray= (JSONArray) jsoncar.getJSONArray("photos");
                         byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
@@ -177,6 +326,10 @@ public class CarDescription extends Fragment {
                         dinPower.setText(jsoncar3.getString("dinpower"));
                         description.setText(jsoncar2.getString("description"));
                         mainImage.setImageBitmap(bitmap);
+                        if (isfavorite){
+                            favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_24_red));
+                            favorite.setSelected(true);
+                        }
 
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();

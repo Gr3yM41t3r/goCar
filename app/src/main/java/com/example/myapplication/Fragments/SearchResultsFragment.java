@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.DashBoardActivity;
 import com.example.myapplication.Utility.ImageResizer;
 import com.example.myapplication.R;
 import com.example.myapplication.constant.Constants;
@@ -44,6 +45,8 @@ public class SearchResultsFragment extends Fragment {
     ShimmerFrameLayout shimmerFrameLayout;
     GridLayout gridLayout;
     LayoutInflater inflater2;
+    Fragment carDescription = new CarDescription();
+
     public SearchResultsFragment() {
         // Required empty public constructor
     }
@@ -74,10 +77,15 @@ public class SearchResultsFragment extends Fragment {
 
         return view;
     }
+    public void sendBundle(Fragment fragment, String keyword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("idadvert", keyword);
+        fragment.setArguments(bundle);
+    }
 
 
 
-    public void fillCarList(String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm){
+    public void fillCarList(int id,String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm){
         View cardview= inflater2.inflate(R.layout.small_cardview_car,gridLayout,false);
         TextView type = cardview.findViewById(R.id.title);
         TextView model = cardview.findViewById(R.id.model);
@@ -91,6 +99,14 @@ public class SearchResultsFragment extends Fragment {
         fuel.setText(fl);
         productionyear.setText(prdyr);
         mainImage.setImageBitmap(bm);
+        cardview.setId(id);
+        cardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendBundle(carDescription,String.valueOf(cardview.getId()));
+                ((DashBoardActivity) requireActivity()).setFragment(carDescription);
+            }
+        });
         gridLayout.addView(cardview);
     }
 
@@ -114,17 +130,20 @@ public class SearchResultsFragment extends Fragment {
                         shimmerFrameLayout.setVisibility(View.GONE);
                         assert response.body() != null;
                         JSONObject jsobj;
+                        JSONObject advert;
                         JSONArray jsonArray;
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray cars = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < cars.length(); i++) {
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
+                            advert=new JSONObject(cars.getJSONObject(i).getString("advert"));
                             jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
                             Log.e("mlkjllmkj",jsonArray.get(0).toString());
-                            Log.e("amine",String.valueOf(jsonArray.length()));
+                            Log.e("amine",jsobj.toString());
                             byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
-                            fillCarList(jsobj.getString("type"),
+                            fillCarList(advert.getInt("id"),
+                                    jsobj.getString("type"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
