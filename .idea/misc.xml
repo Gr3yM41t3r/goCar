@@ -42,6 +42,7 @@
         <entry key="app/src/main/res/drawable/main_gradiant.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/map_marker_radius.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/layout-v26/fragment_search.xml" value="0.5385416666666667" />
         <entry key="app/src/main/res/layout/activity_dash_board.xml" value="0.27598684210526314" />
         <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.5385416666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />

@@ -69,7 +69,12 @@ public class SearchResultsFragment extends Fragment {
 
         try {
             assert previousFragBundle != null;
-            getCars(previousFragBundle.getString("keyword"));
+            if (previousFragBundle.size()==1){
+                getCars(previousFragBundle.getString("keyword"));
+            }else {
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,6 +118,66 @@ public class SearchResultsFragment extends Fragment {
     private void getCars(String keyword) throws JSONException {
         JSONObject paramObject = new JSONObject();
         paramObject.put("keyword", keyword);
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(Constants.URL + "api/goCar/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        AdvertInterface car = retrofit.create(AdvertInterface.class);
+        Call<Object> call = car.getadvertbysearch(paramObject.toString());
+        shimmerFrameLayout.startShimmer();
+        call.enqueue(new Callback<Object>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                try {
+                    if (response.code() == 200) {
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        assert response.body() != null;
+                        JSONObject jsobj;
+                        JSONObject advert;
+                        JSONArray jsonArray;
+                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                        JSONArray cars = new JSONArray(jsonObject.getString("data"));
+                        for (int i = 0; i < cars.length(); i++) {
+                            jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
+                            advert=new JSONObject(cars.getJSONObject(i).getString("advert"));
+                            jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");
+                            Log.e("mlkjllmkj",jsonArray.get(0).toString());
+                            Log.e("amine",jsobj.toString());
+                            byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
+                            fillCarList(advert.getInt("id"),
+                                    jsobj.getString("type"),
+                                    jsobj.getString("brand")+" "+jsobj.getString("model"),
+                                    jsobj.getString("odometer"),
+                                    jsobj.getString("fuel"),
+                                    jsobj.getString("productionyear"),
+                                    bitmap
+                            );
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable throwable) {
+                Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getCarsByFilter(String model,String brand,String fuel, String type, String city ) throws JSONException {
+        JSONObject paramObject = new JSONObject();
+        paramObject.put("model", model);
+        paramObject.put("brand", brand);
+        paramObject.put("fuel", fuel);
+        paramObject.put("type", type);
+        paramObject.put("city", city);
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());

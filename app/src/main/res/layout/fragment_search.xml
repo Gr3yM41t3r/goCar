@@ -91,7 +91,7 @@
                         android:ems="10"
                         android:hint="marque"
                         android:maxLength="20"
-                        android:paddingStart="20dp"
+                        android:paddingStart="5dp"
                         android:singleLine="true" />
 
                     <EditText
@@ -105,7 +105,7 @@
                         android:ems="10"
                         android:hint="model"
                         android:maxLength="20"
-                        android:paddingStart="20dp"
+                        android:paddingStart="5dp"
                         android:singleLine="true" />
 
 
@@ -141,6 +141,40 @@
                         android:entries="@array/fuel"
                         />
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <EditText
+                        android:id="@+id/zipcoo"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:paddingStart="5dp"
+                        android:background="@drawable/custom_input"
+                        android:hint="@string/code_postal" />
+
+                    <Button
+                        android:id="@+id/seach"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:background="#A587AA"
+                        android:text="search"
+
+
+                        />
 
                 </LinearLayout>
 
