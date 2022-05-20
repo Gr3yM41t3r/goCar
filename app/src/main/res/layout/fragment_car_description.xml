@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer"
             android:layout_width="match_parent"
@@ -24,6 +23,7 @@
             <include layout="@layout/car_description_shimmer" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
+
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -41,17 +41,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_back_24" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/citadine"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -75,9 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
-                app:cardBackgroundColor="#345D5067"
+                app:cardBackgroundColor="#B7B0BD"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp"
+                android:layout_marginBottom="20dp"
                 >
 
                 <RelativeLayout
@@ -114,7 +105,7 @@
                         android:layout_below="@id/owner"
                         android:adjustViewBounds="true"
                         android:padding="1dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                        />
 
                     <TextView
@@ -135,7 +126,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="40dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="marque: mercedes"
+                        android:text="marque"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -147,7 +138,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="60dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="modele :EQS"
+                        android:text="modele"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -159,7 +150,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="80dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Année-modele :2016"
+                        android:text="Année-modele"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -171,7 +162,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="100dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Kilometrage :70000km"
+                        android:text="Kilometrage"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -183,7 +174,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="120dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Carburant :Electrique"
+                        android:text="Carburant"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -195,7 +186,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="140dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Boite A vitesse :Automatique"
+                        android:text="Boite A vitesse"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -207,7 +198,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="160dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="Type de vehicule :Berline"
+                        android:text="Type de vehicule"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -219,19 +210,19 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="180dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="couleur :Noire"
+                        android:text="couleur"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/numberofdoors"
+                        android:id="@+id/startservice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/mainImage"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="200dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="nombre de porte :5"
+                        android:text="mise en service"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -243,9 +234,10 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="220dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="puissance fiscale :4"
+                        android:text="puissance fiscale"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+
 
                     <TextView
                         android:id="@+id/dinPower"
@@ -255,9 +247,21 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="240dp"
                         android:fontFamily="@font/montserrat_alternates"
-                        android:text="puissance DIN :4"
+                        android:text="puissance DIN"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="280dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:textColor="@color/black"
+                        android:text="sqdqsdqs"
+                        android:textSize="10sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -265,21 +269,21 @@
                         android:layout_below="@id/mainImage"
                         android:fontFamily="@font/poppins_bold"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="270dp"
-                        android:text="Description:"
+                        android:layout_marginTop="290dp"
+                        android:text="Description"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
+
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/mainImage"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="300dp"
-                        android:text="Description:"
+                        android:layout_marginTop="320dp"
                         android:textColor="@color/black"
-                        tools:text="@tools:sample/lorem/random"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="@tools:sample/lorem/random" />
 
                 </RelativeLayout>
 
@@ -287,6 +291,34 @@
 
 
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/contact_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp"
+            android:background="#D268448C"
+            android:ems="10"
+            android:elevation="10dp"
+            android:hint="Contacter" />
+
+        <Button
+            android:id="@+id/phonenumber_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:drawableStart="@drawable/ic_baseline_local_phone_24"
+            android:layout_marginBottom="40dp"
+            android:background="#8BC34A"
+            android:ems="10"
+            android:elevation="10dp"
+
+            android:hint="Confirmer" />
     </LinearLayout>
 
 

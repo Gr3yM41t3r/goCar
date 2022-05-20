@@ -27,10 +27,11 @@
                 android:src="@drawable/ic_baseline_menu_40" />
 
             <ImageView
+                android:id="@+id/navigatetofavorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_notifications_none_40" />
+                android:src="@drawable/ic_baseline_favorite_border_40" />
 
             <TextView
                 android:id="@+id/categories"
@@ -48,20 +49,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/categories"
+                android:layout_marginStart="15dp"
                 android:orientation="horizontal">
+
 
                 <TextView
                     android:id="@+id/all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
-                    android:padding="10dp"
+                    android:padding="7dp"
                     android:text="@string/all"
                     android:textColor="@color/black"
-                    android:textSize="28sp" />
+                    android:textSize="40sp" />
 
                 <TextView
-                    android:id="@+id/bb"
+                    android:id="@+id/breaktype"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
@@ -108,24 +111,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/categoriesLayout"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+               >
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/search_bar"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
                     android:layout_margin="13dp"
-                    app:cardBackgroundColor="#D268448C"
+                    app:cardBackgroundColor="#7E54A8"
                     app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="10dp"
+                    >
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
                         android:orientation="horizontal"
-                        tools:ignore="RtlHardcoded">
+                        >
 
                         <TextView
                             android:layout_width="250dp"
@@ -150,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_magnify_white_36dp"
+                            android:src="@drawable/ic_baseline_search_36"
 
                             />
 
@@ -169,36 +173,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/filterLayout"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:layout_marginBottom="30dp">
 
                 <LinearLayout
                     android:id="@+id/horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <include layout="@layout/big_cardview_car_shimmer" />
-
-                            <include layout="@layout/big_cardview_car_shimmer" />
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="30dp">
 
 
-                        </LinearLayout>
-
-
-                    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
                 </LinearLayout>

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../../layout/custom_preview.xml" value="0.3734375" />
         <entry key="../../../../../../Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.2388157894736842" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/drawable/bottom_nav_menu.xml" value="0.534" />
         <entry key="..\:/Users/Elmaroufi/Desktop/goCar/goCar/app/src/main/res/layout-v23/activity_home_page.xml" value="0.31354166666666666" />
@@ -20,17 +21,26 @@
         <entry key="app/src/main/res/drawable/custom_button_orange.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/custom_button_pink.xml" value="0.321875" />
         <entry key="app/src/main/res/drawable/custom_button_pink_reverse.xml" value="0.3765625" />
+        <entry key="app/src/main/res/drawable/custom_input.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_business_24.xml" value="0.3469055374592834" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_cake_24.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24_red.xml" value="0.2361842105263158" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_40.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_52.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_menu_40.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_message_56.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.27828947368421053" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_36.xml" value="0.3503289473684211" />
+        <entry key="app/src/main/res/drawable/ic_baseline_share_40.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/ic_icons8_logo_google.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/ic_icons8_logo_google_pink.xml" value="0.321875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3703125" />
         <entry key="app/src/main/res/drawable/ic_register_ui_2b.xml" value="0.3703125" />
         <entry key="app/src/main/res/drawable/main_gradiant.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/drawable/map_marker_radius.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.3503289473684211" />
         <entry key="app/src/main/res/layout/activity_dash_board.xml" value="0.27598684210526314" />
         <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.5385416666666667" />
@@ -41,6 +51,7 @@
         <entry key="app/src/main/res/layout/big_cardview_car_shimmer.xml" value="0.3401315789473684" />
         <entry key="app/src/main/res/layout/car_description_shimmer.xml" value="0.16709760827407885" />
         <entry key="app/src/main/res/layout/favorite_cards.xml" value="0.2700657894736842" />
+        <entry key="app/src/main/res/layout/fragment_add_advert.xml" value="0.2680921052631579" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.5385416666666667" />
         <entry key="app/src/main/res/layout/fragment_car_description.xml" value="0.22598684210526315" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.22598684210526315" />
@@ -51,6 +62,9 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.22894736842105262" />
         <entry key="app/src/main/res/layout/fragment_search_results.xml" value="0.3401315789473684" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.3305921052631579" />
+        <entry key="app/src/main/res/layout/loading_carview_car_shimmer.xml" value="0.3401315789473684" />
+        <entry key="app/src/main/res/layout/map_marker_radius.xml" value="0.3401315789473684" />
+        <entry key="app/src/main/res/layout/photo_cardview.xml" value="0.2680921052631579" />
         <entry key="app/src/main/res/layout/sidebar_header.xml" value="0.35460526315789476" />
         <entry key="app/src/main/res/layout/small_cardview_car.xml" value="0.3401315789473684" />
         <entry key="app/src/main/res/layout/small_cardview_car_shimmer.xml" value="0.27532894736842106" />

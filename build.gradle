@@ -5,6 +5,7 @@ buildscript {
         maven {     url "https://maven.google.com"
 
             allowInsecureProtocol = true}
+
         jcenter()
     }
     dependencies {
@@ -14,6 +15,7 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

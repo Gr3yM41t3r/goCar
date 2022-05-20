@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.transition.TransitionInflater;
@@ -40,6 +41,8 @@ public class SearchFragment extends Fragment {
 
     private SearchView searchView;
     private ListView resultListView;
+    private CardView filter;
+    private CardView filterButton;
     ArrayList<String> listItems=new ArrayList<String>();
     ArrayAdapter<String> adapter;
 
@@ -62,6 +65,8 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         searchView = view.findViewById(R.id.seachView);
         resultListView = view.findViewById(R.id.resultListView);
+        filter = view.findViewById(R.id.filter);
+        filterButton = view.findViewById(R.id.filterButton);
         adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
         resultListView.setAdapter(adapter);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -80,7 +85,19 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+        filter.setVisibility(View.INVISIBLE);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (filter.getVisibility()==View.VISIBLE){
+                    filter.setVisibility(View.INVISIBLE);
 
+                }else {
+                    filter.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
         resultListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

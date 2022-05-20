@@ -56,7 +56,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -74,6 +76,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     ShimmerFrameLayout shimmerFrameLayout;
     LayoutInflater inflater2 ;
     ImageView hamburger;
+    ImageView navigatetofavorites;
     DrawerLayout sideBar;
     TextView all;
     TextView bb;
@@ -83,8 +86,9 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     CardView searchbar;
     NavigationView side_bar_view;
     Fragment carDescription = new CarDescription();
-
-
+    ArrayList<TextView> filter= new ArrayList<>();
+    Fragment favoritesFragment = new FavoritesFragment();
+    Fragment addFragment = new AddAdvertFragment();
 
 
     public HomePageFragment() {
@@ -107,16 +111,23 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
 
         View view =inflater.inflate(R.layout.fragment_home_page, container, false);
         inflater2 = getLayoutInflater();
+
         horizontal =view.findViewById(R.id.horizontal);
-        shimmerFrameLayout =view.findViewById(R.id.shimmer);
         hamburger =view.findViewById(R.id.side_bar_hamburger);
+        navigatetofavorites =view.findViewById(R.id.navigatetofavorites);
         sideBar =view.findViewById(R.id.homePage);
         all =view.findViewById(R.id.all);
-        bb =view.findViewById(R.id.bb);
+        bb =view.findViewById(R.id.breaktype);
         berline =view.findViewById(R.id.berline);
         citadine =view.findViewById(R.id.citadine);
         sport =view.findViewById(R.id.sport);
         searchbar =view.findViewById(R.id.search_bar);
+        filter.add(all);
+        filter.add(bb);
+        filter.add(berline);
+        filter.add(citadine);
+        filter.add(sport);
+        addFilerClickListner();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),sideBar,R.string.an_error_occurred_please_login_again_later,R.string.an_error_occurred_please_login_again_later);
         sideBar.addDrawerListener(toggle);
         toggle.syncState();
@@ -146,9 +157,74 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                 }
             }
         });
+        navigatetofavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (SaveSharedPreference.isLogedIn(requireContext())) {
+                        ((DashBoardActivity) requireActivity()).setFragment(favoritesFragment);
+                    }else {
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
 
 
         return view;
+    }
+    public void addFilerClickListner(){
+
+        for (int i = 0; i < filter.size(); i++) {
+            int finalI = i;
+            filter.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Vibrator vibe = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+                    for (int j = 0; j < filter.size(); j++) {
+                        filter.get(j).setTextSize(18);
+
+                    }
+                    vibe.vibrate(80);
+                    filter.get(finalI).setTextSize(40);
+
+                    if (filter.get(finalI).getText().toString().toLowerCase(Locale.ROOT).equals("all"))
+                    {
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    getCars();
+                                } catch (GeneralSecurityException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    getCarsByType(filter.get(finalI).getText().toString().toLowerCase(Locale.ROOT));
+                                } catch (GeneralSecurityException | IOException | JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+            });
+
+        }
     }
 
     public void sendBundle(Fragment fragment, String keyword) {
@@ -157,20 +233,23 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         fragment.setArguments(bundle);
     }
 
-    public void fillCarList(int id,String tp, String mdl, String odo, String fl, String prdyr, Bitmap bm,boolean isfavorite){
+    public void fillCarList(int id,String tp,String titletxt, String mdl, String odo, String fl, String citytxt, Bitmap bm,boolean isfavorite){
+
         View cardview= inflater2.inflate(R.layout.big_cardview_car,horizontal,false);
-        TextView type = cardview.findViewById(R.id.title);
+        TextView type = cardview.findViewById(R.id.type);
+        TextView title = cardview.findViewById(R.id.title);
         TextView model = cardview.findViewById(R.id.model);
         TextView odometer = cardview.findViewById(R.id.odometer);
         TextView fuel = cardview.findViewById(R.id.fuel);
-        TextView productionyear = cardview.findViewById(R.id.productionyear);
+        TextView city = cardview.findViewById(R.id.city);
         ImageView mainImage = cardview.findViewById(R.id.mainImage);
         ImageView favorite = cardview.findViewById(R.id.favoritebutton);
         type.setText(tp);
+        title.setText(titletxt);
         model.setText(mdl);
-        odometer.setText(odo);
+        odometer.setText(odo+ " Km");
         fuel.setText(fl);
-        productionyear.setText(prdyr);
+        city.setText(citytxt);
         mainImage.setImageBitmap(bm);
         cardview.setId(id);
         if (isfavorite){
@@ -188,6 +267,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             @Override
             public void onClick(View view) {
                 Vibrator vibe = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
                 try {
                     if(!SaveSharedPreference.isLogedIn(getContext())){
 
@@ -271,6 +351,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     }
 
     private void addFavorite(Favorites favorites){
+
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -334,6 +415,11 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
 
 
     private void getCars() throws GeneralSecurityException, IOException {
+        horizontal.removeAllViews();
+        View shimmer= inflater2.inflate(R.layout.loading_carview_car_shimmer,horizontal,false);
+        horizontal.addView(shimmer);
+        ShimmerFrameLayout shimmerFrameLayout;
+        shimmerFrameLayout =shimmer.findViewById(R.id.shimmer);
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -366,16 +452,82 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
                             fillCarList(jsonAdvert.getInt("id"),
                                     jsobj.getString("type"),
+                                    jsonAdvert.getString("title"),
                                     jsobj.getString("brand")+" "+jsobj.getString("model"),
                                     jsobj.getString("odometer"),
                                     jsobj.getString("fuel"),
-                                    jsobj.getString("productionyear"),
+                                    jsonAdvert.getString("city"),
                                     bitmap,
                                     isfavorite
                             );
                         }
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.password_email_incorrect), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable throwable) {
+                Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void getCarsByType(String type) throws GeneralSecurityException, IOException, JSONException {
+        horizontal.removeAllViews();
+        View shimmer= inflater2.inflate(R.layout.loading_carview_car_shimmer,horizontal,false);
+        horizontal.addView(shimmer);
+        ShimmerFrameLayout shimmerFrameLayout;
+        shimmerFrameLayout =shimmer.findViewById(R.id.shimmer);
+        JSONObject paramObject = new JSONObject();
+        paramObject.put("userid", SaveSharedPreference.getSessionId(getContext()));
+        paramObject.put("type", type);
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(Constants.URL + "api/goCar/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        AdvertInterface car = retrofit.create(AdvertInterface.class);
+        Call<Object> call = car.getadvertbytype(paramObject.toString());
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
+        call.enqueue(new Callback<Object>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                try {
+                    if (response.code() == 200) {
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        assert response.body() != null;
+                        JSONObject jsobj;
+                        JSONObject jsonAdvert;
+                        JSONArray jsonArray;
+                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                        JSONArray cars = new JSONArray(jsonObject.getString("data"));
+                        for (int i = 0; i < cars.length(); i++) {
+                            jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
+                            jsonAdvert=new JSONObject(cars.getJSONObject(i).getString("advert"));
+                            boolean isfavorite = Boolean.parseBoolean(cars.getJSONObject(i).getString("isfavorite"));
+                            jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");;
+                            byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
+                            fillCarList(jsonAdvert.getInt("id"),
+                                    jsobj.getString("type"),
+                                    jsonAdvert.getString("title"),
+                                    jsobj.getString("brand")+" "+jsobj.getString("model"),
+                                    jsobj.getString("odometer"),
+                                    jsobj.getString("fuel"),
+                                    jsonAdvert.getString("city"),
+                                    bitmap,
+                                    isfavorite
+                            );
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -419,12 +571,34 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                 }
                 break;
             case R.id.nav_add:
+                try {
+                    if (SaveSharedPreference.isLogedIn(getContext())) {
+                        ((DashBoardActivity) requireActivity()).setFragment(addFragment);
+
+                    } else {
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case R.id.nav_message:
                 break;
             case R.id.nav_favourite:
-                Fragment favoritesFragment = new FavoritesFragment();
-                ((DashBoardActivity) requireActivity()).setFragment(favoritesFragment);
+                try {
+                    if (SaveSharedPreference.isLogedIn(getContext())) {
+                    Fragment favoritesFragment = new FavoritesFragment();
+                    ((DashBoardActivity) requireActivity()).setFragment(favoritesFragment);}
+
+                    else {
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
                 break;
 
         }

@@ -47,6 +47,11 @@ dependencies {
     implementation "androidx.security:security-crypto:1.0.0-alpha02"
     implementation'com.facebook.shimmer:shimmer:0.5.0'
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'com.github.Drjacky:ImagePicker:2.1.15'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
+
+
+
 
 
 

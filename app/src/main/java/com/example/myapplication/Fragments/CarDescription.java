@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -66,9 +67,10 @@ public class CarDescription extends Fragment {
     private TextView gearbox;
     private TextView type;
     private TextView color;
-    private TextView numberofdoors;
+    private TextView startservice;
     private TextView fiscalPower;
     private TextView dinPower;
+    private TextView date;
     private TextView description;
     private ImageView mainImage;
     private ImageView favorite;
@@ -109,9 +111,10 @@ public class CarDescription extends Fragment {
         type= view.findViewById(R.id.type);
         gearbox= view.findViewById(R.id.gearbox);
         color= view.findViewById(R.id.color);
-        numberofdoors= view.findViewById(R.id.numberofdoors);
+        startservice= view.findViewById(R.id.startservice);
         fiscalPower= view.findViewById(R.id.fiscalPower);
         dinPower= view.findViewById(R.id.dinPower);
+        date= view.findViewById(R.id.date);
         description= view.findViewById(R.id.description);
         mainImage= view.findViewById(R.id.mainImage);
         favorite= view.findViewById(R.id.favoritebutton);
@@ -289,6 +292,7 @@ public class CarDescription extends Fragment {
         Call<Object> call = car.getSingleCarDescription(paramObject.toString());
         shimmerFrameLayout.startShimmer();
         call.enqueue(new Callback<Object>() {
+            @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -311,19 +315,21 @@ public class CarDescription extends Fragment {
                         jsonArray= (JSONArray) jsoncar.getJSONArray("photos");
                         byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                         Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
+
                         adverttitle.setText(jsoncar2.getString("title"));
                         owner.setText(jsoncar2.getString("title"));
-                        brand.setText(jsoncar3.getString("brand"));
-                        model.setText(jsoncar3.getString("model"));
-                        yearmode.setText(jsoncar3.getString("productionyear"));
-                        odometer.setText(jsoncar3.getString("odometer"));
-                        fuel.setText(jsoncar3.getString("fuel"));
-                        gearbox.setText(jsoncar3.getString("gearbox"));
-                        type.setText(jsoncar3.getString("type"));
-                        color.setText(jsoncar3.getString("color"));
-                        numberofdoors.setText(jsoncar2.getString("title"));
-                        fiscalPower.setText(jsoncar3.getString("fiscalpower"));
-                        dinPower.setText(jsoncar3.getString("dinpower"));
+                        date.setText(jsoncar2.getString("publishdate"));
+                        brand.setText(brand.getText()+" : " +jsoncar3.getString("brand"));
+                        model.setText(model.getText()+" : "+jsoncar3.getString("model"));
+                        yearmode.setText(yearmode.getText()+" : "+jsoncar3.getString("productionyear"));
+                        odometer.setText(odometer.getText()+" : "+jsoncar3.getString("odometer"));
+                        fuel.setText(fuel.getText()+" : "+jsoncar3.getString("fuel"));
+                        gearbox.setText(gearbox.getText()+" : "+jsoncar3.getString("gearbox"));
+                        type.setText(type.getText()+" : "+jsoncar3.getString("type"));
+                        color.setText(color.getText()+" : "+jsoncar3.getString("color"));
+                        startservice.setText(startservice.getText()+" : "+jsoncar3.getString("startservice"));
+                        fiscalPower.setText(fiscalPower.getText()+" : "+jsoncar3.getString("fiscalpower"));
+                        dinPower.setText(dinPower.getText()+" : "+jsoncar3.getString("dinpower"));
                         description.setText(jsoncar2.getString("description"));
                         mainImage.setImageBitmap(bitmap);
                         if (isfavorite){

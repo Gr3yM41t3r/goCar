@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.cardview.widget.CardView
-    android:layout_width="290dp"
+<androidx.cardview.widget.CardView android:layout_width="290dp"
     android:layout_height="400dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="13dp"
-    app:cardBackgroundColor="#345D5067"
+    app:cardBackgroundColor="#E0D1E4"
     app:cardCornerRadius="12dp"
-    app:cardElevation="3dp"
+    app:cardElevation="7dp"
+    android:layout_marginBottom="30dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/berline"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+              >
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/berline"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
 
-            <ImageView
-                android:id="@+id/favoritebutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_baseline_favorite_border_52" />
+                <ImageView
+                    android:id="@+id/favoritebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_baseline_favorite_border_52" />
+
+            </RelativeLayout>
+
+
 
             <ImageView
                 android:id="@+id/mainImage"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_below="@id/title"
                 android:adjustViewBounds="true"
                 android:padding="1dp"
                 android:scaleType="fitXY" />
 
             <TextView
-                android:id="@+id/model"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mainImage"
                 android:fontFamily="@font/poppins_bold"
-                android:padding="10dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/mercedes_eqs_580"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/montserrat_alternates"
+                android:text="@string/_28_000km"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/odometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mainImage"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
                 android:fontFamily="@font/montserrat_alternates"
                 android:text="@string/_28_000km"
                 android:textColor="@color/black"
@@ -73,37 +85,49 @@
                 android:id="@+id/fuel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mainImage"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="60dp"
                 android:fontFamily="@font/montserrat_alternates"
                 android:text="@string/electrique"
                 android:textColor="@color/black"
+                android:layout_weight="1"
                 android:textSize="18sp" />
-            <TextView
-                android:id="@+id/productionyear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mainImage"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="100dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/montpellier"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mainImage"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="100dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/_50_000"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                android:textSize="20sp" />
 
-        </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:drawableStart="@drawable/map_marker_radius"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/montpellier"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/_50_000"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>

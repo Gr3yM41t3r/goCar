@@ -65,7 +65,6 @@
                 android:hint="@string/date_de_naissance"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-
                 android:singleLine="true"
                 android:textColorHint="@color/lightGray40"/>
             <EditText
