@@ -84,7 +84,6 @@ public class RegisterFormFragment1 extends Fragment {
                             } else {
                                 confirmPassword.setError("les mots de passe ne se ressemblent pas");
                             }
-
                         }else {
                             password.setError("password should be at least 8 caracters");
                         }

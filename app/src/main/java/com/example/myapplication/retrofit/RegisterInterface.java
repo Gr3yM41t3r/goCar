@@ -11,6 +11,9 @@ public interface RegisterInterface {
     @POST("register")
     Call<Object> register(@Body UserModel user);
 
+    @POST("registerpro")
+    Call<Object> registerPro(@Body UserModel user);
+
     @POST("process")
     Call<Object> process(@Body String email);
 }

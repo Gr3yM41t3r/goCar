@@ -75,13 +75,22 @@ public class RegisterFormFragment2 extends Fragment {
         lastName = view.findViewById(R.id.lastnameInput);
         phoneNumber = view.findViewById(R.id.phoneInput);
         isPofessionel = view.findViewById(R.id.userStatusCheckbox);
-
         confirmRegister = view.findViewById(R.id.confirm_register);
         confirmRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isPofessionel.isChecked()) {
-                    nextFragment(new RegisterFormFragment3());
+                    Fragment fragment2 =new RegisterFormFragment3();
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putString("email","email");
+                    bundle2.putString("password","email");
+                    bundle2.putString("first_name","email");
+                    bundle2.putString("account_type","email");
+                    bundle2.putString("last_name","email");
+                    bundle2.putString("birth_day","email");
+                    bundle2.putString("phone_number","email");
+                    fragment2.setArguments(bundle2);
+                    nextFragment(fragment2);
 
                 } else {
                     UserModel userModel = new UserModel(firstName.getText().toString(),

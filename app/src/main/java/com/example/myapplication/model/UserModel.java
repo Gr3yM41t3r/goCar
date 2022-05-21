@@ -9,6 +9,7 @@ public class UserModel {
     private String email;
     private String password;
 
+
     public UserModel(String first_name, String last_name, String birth_day, String phone_number, String account_type, String email, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
