@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradiant"
+    tools:context=".Fragments.FavoritesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Mes Favoris:"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/favoritescontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#345D5067"
+            android:orientation="vertical">
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</FrameLayout>

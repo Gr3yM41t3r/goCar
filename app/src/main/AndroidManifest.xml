@@ -3,6 +3,7 @@
     package="com.example.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,16 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:windowSoftInputMode="adjustPan"
+
+
         android:usesCleartextTraffic="true">
         <activity
             android:name=".RegisterActivity"
+            android:configChanges="screenSize|orientation"
 
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:configChanges="screenSize|orientation"
             android:exported="false" />
+
+
         <activity
-            android:name=".HomePageActivity"
+            android:name=".DashBoardActivity"
+            android:configChanges="screenSize|orientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

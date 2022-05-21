@@ -1,34 +1,33 @@
 package com.example.myapplication.model;
 
 public class Organisation extends UserModel {
-    private String nomOrganisation;
-    private String adresse;
+    private String organisation;
+    private String adress;
     private String zipCode;
-    private String ville;
+    private String city;
 
-
-    public Organisation(String first_name, String last_name, String birth_day, String phone_number, String account_type, String email, String password, String nomOrganisation, String adresse, String zipCode, String ville) {
+    public Organisation(String first_name, String last_name, String birth_day, String phone_number, String account_type, String email, String password, String organisation, String adress, String zipCode, String city) {
         super(first_name, last_name, birth_day, phone_number, account_type, email, password);
-        this.nomOrganisation = nomOrganisation;
-        this.adresse = adresse;
+        this.organisation = organisation;
+        this.adress = adress;
         this.zipCode = zipCode;
-        this.ville = ville;
+        this.city = city;
     }
 
-    public String getNomOrganisation() {
-        return nomOrganisation;
+    public String getOrganisation() {
+        return organisation;
     }
 
-    public void setNomOrganisation(String nomOrganisation) {
-        this.nomOrganisation = nomOrganisation;
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAdress() {
+        return adress;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public String getZipCode() {
@@ -39,11 +38,11 @@ public class Organisation extends UserModel {
         this.zipCode = zipCode;
     }
 
-    public String getVille() {
-        return ville;
+    public String getCity() {
+        return city;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setCity(String city) {
+        this.city = city;
     }
 }

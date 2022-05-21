@@ -1,13 +1,14 @@
 <resources>
-    <string name="app_name">My Application</string>
+
+    <string name="app_name">goCar</string>
     <string name="categories">Categories</string>
-    <string name="all">ALL</string>
+    <string name="all">All</string>
     <string name="Break">Break</string>
     <string name="berline">Berline</string>
     <string name="citadine">Citadine</string>
     <string name="sport">Sport</string>
 
-    <string name="Que_recherchez_vous"><font size="18">Que_recherchez_vous ?</font></string>
+    <string name="Que_recherchez_vous"><font size="18">Que recherchez vous ?</font></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mercedes_eqs_580">Mercedes EQS 580</string>
@@ -45,4 +46,61 @@
     <string name="adresse">adresse</string>
     <string name="ville">ville</string>
     <string name="code_postal">code Postal</string>
+    <string name="email_required">email obligatoire</string>
+    <string name="password_required">mot de passe obligatoire</string>
+    <string name="invalid_email">email invalide</string>
+    <string name="please_wait">merci de patienter</string>
+    <string name="connection...">connection en cours</string>
+    <string name="password_email_incorrect">mot de passe ou email incorrecte</string>
+    <string name="an_error_occurred_please_login_again_later">une erreur est survenue merci de réessayer ultérieurement</string>
+    <string name="passwords_arent_similar">les mots de passe ne se ressemblent pas</string>
+    <string name="password_at_least_8_characters">le mot de passe doit contenir au moins 8 caractères</string>
+    <string name="error_getting_city">erreur connection serveur</string>
+    <string name="city_not_found">code postal incorrecte</string>
+    <string name="email_already_exist">email existant</string>
+    <string name="required">requis</string>
+    <string name="messagerie">Messagerie</string>
+    <string name="favoris">favoris</string>
+    <string name="mon_compte">Mon Compte</string>
+    <string name="d_poser_votre_annonce">Déposer votre annonce</string>
+    <string name="compte">Compte</string>
+    <string name="d_connexion">déconnexion</string>
+    <string name="renault_megane_4_audi_a7">Renault Megane 4, Audi A7</string>
+
+    <string-array name="vehicule_type">
+        <item>type de voiture</item>
+        <item>SUV</item>
+        <item>Berline</item>
+        <item>Break</item>
+        <item>Cabriolet</item>
+        <item>Citadine</item>
+        <item>Coupé</item>
+        <item>Minibus</item>
+        <item>Monospace</item>
+        <item>Pick-up</item>
+        <item>Voiture société</item>
+        <item>Autre</item>
+    </string-array>
+
+    <string-array name="advert_type">
+        <item>type d\'annonce</item>
+        <item>Location</item>
+        <item>Vente</item>
+    </string-array>
+
+    <string-array name="gearbox">
+        <item>boîte de vitesse</item>
+        <item>Manuelle</item>
+        <item>Automatique</item>
+    </string-array>
+
+    <string-array name="fuel">
+        <item>Carburant</item>
+        <item>Essence</item>
+        <item>Diesel</item>
+        <item>Hybride</item>
+        <item>Electrique</item>
+        <item>GPL</item>
+        <item>Autre</item>
+    </string-array>
 </resources>

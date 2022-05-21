@@ -42,33 +42,52 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/lightGray40"/>
 
-            <EditText
-                android:id="@+id/passwordInput"
-                android:layout_width="240dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom__input"
-                android:ellipsize="start"
-                android:gravity="center"
-                android:hint="@string/mot_de_passe"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textColorHint="@color/lightGray40"/>
 
-            <EditText
-                android:id="@+id/confirmPasswordInput"
-                android:layout_width="240dp"
-                android:layout_height="50dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/custom__input"
-                android:ellipsize="start"
                 android:gravity="center"
-                android:hint="@string/mot_de_passe"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textColorHint="@color/lightGray40"/>
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom__input"
+                    android:ellipsize="start"
+                    android:gravity="center"
+                    android:hint="@string/mot_de_passe"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/lightGray40"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/confirmPasswordInput"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom__input"
+                    android:ellipsize="start"
+                    android:gravity="center"
+                    android:hint="@string/mot_de_passe"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/lightGray40"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/next_form"

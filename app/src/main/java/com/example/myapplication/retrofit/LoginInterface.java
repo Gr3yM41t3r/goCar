@@ -15,4 +15,8 @@ import retrofit2.http.POST;
 public interface LoginInterface {
     @POST("login")
     Call<Object> login(@Body Compte compte);
+
+
+    @POST("getuserdata")
+    Call<Object> getUserData(@Body String token);
 }

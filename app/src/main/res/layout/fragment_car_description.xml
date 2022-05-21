@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.CarDescription"
+    android:background="@drawable/background_gradiant">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <include layout="@layout/car_description_shimmer" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/side_bar_hamburger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_baseline_share_40" />
+
+            <TextView
+                android:id="@+id/adverttitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="70dp"
+                android:text="Renault Megane 4"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                app:cardBackgroundColor="#B7B0BD"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Paul"
+                        android:textColor="@color/black"
+                        android:textSize="30sp" />
+
+                    <ImageView
+                        android:id="@+id/favoritebutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_cards_heart_outline_white_24dp" />
+
+                    <ImageView
+                        android:id="@+id/mainImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_below="@id/owner"
+                        android:adjustViewBounds="true"
+                        android:padding="1dp"
+                        android:scaleType="fitXY"
+                       />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:fontFamily="@font/poppins_bold"
+                        android:padding="10dp"
+                        android:text="caracterisque"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/brand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="marque"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="60dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="modele"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/yearmode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="80dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Année-modele"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/odometer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="100dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Kilometrage"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/fuel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="120dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Carburant"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/gearbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="140dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Boite A vitesse"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="160dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="Type de vehicule"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="180dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="couleur"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/startservice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="200dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="mise en service"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/fiscalPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="220dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="puissance fiscale"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+
+                    <TextView
+                        android:id="@+id/dinPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="240dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:text="puissance DIN"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="280dp"
+                        android:fontFamily="@font/montserrat_alternates"
+                        android:textColor="@color/black"
+                        android:text="sqdqsdqs"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="290dp"
+                        android:text="Description"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mainImage"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="320dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        tools:text="@tools:sample/lorem/random" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/contact_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp"
+            android:background="#D268448C"
+            android:ems="10"
+            android:elevation="10dp"
+            android:hint="Contacter" />
+
+        <Button
+            android:id="@+id/phonenumber_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:drawableStart="@drawable/ic_baseline_local_phone_24"
+            android:layout_marginBottom="40dp"
+            android:background="#8BC34A"
+            android:ems="10"
+            android:elevation="10dp"
+
+            android:hint="Confirmer" />
+    </LinearLayout>
+
+
+
+
+
+
+
+</ScrollView>
