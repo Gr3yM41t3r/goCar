@@ -86,6 +86,7 @@ public class SearchFragment extends Fragment {
         seach = view.findViewById(R.id.seach);
         adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
         resultListView.setAdapter(adapter);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -102,12 +103,12 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-        filter.setVisibility(View.INVISIBLE);
+        filter.setVisibility(View.GONE);
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (filter.getVisibility()==View.VISIBLE){
-                    filter.setVisibility(View.INVISIBLE);
+                    filter.setVisibility(View.GONE);
 
                 }else {
                     filter.setVisibility(View.VISIBLE);

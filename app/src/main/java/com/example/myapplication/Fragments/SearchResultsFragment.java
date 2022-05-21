@@ -70,9 +70,13 @@ public class SearchResultsFragment extends Fragment {
         try {
             assert previousFragBundle != null;
             if (previousFragBundle.size()==1){
-                getCars(previousFragBundle.getString("keyword"));
+            getCars(previousFragBundle.getString("keyword"));
             }else {
-
+                getCarsByFilter(previousFragBundle.getString("model"),
+                        previousFragBundle.getString("brand"),
+                        previousFragBundle.getString("fuel"),
+                        previousFragBundle.getString("type"),
+                        previousFragBundle.getString("city"));
             }
 
         } catch (JSONException e) {
@@ -183,7 +187,7 @@ public class SearchResultsFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
         AdvertInterface car = retrofit.create(AdvertInterface.class);
-        Call<Object> call = car.getadvertbysearch(paramObject.toString());
+        Call<Object> call = car.getadvertbyfilter(paramObject.toString());
         shimmerFrameLayout.startShimmer();
         call.enqueue(new Callback<Object>() {
             @RequiresApi(api = Build.VERSION_CODES.O)

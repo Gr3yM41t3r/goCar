@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,12 @@ public class UserProfileFragment extends Fragment {
     TextView phonenumber;
     TextView accounttype;
     TextView creationdate;
+    TextView entreprisename;
+    TextView adresse;
+    TextView city;
+    TextView zipcode;
+    LinearLayout professionalview;
+
 
 
     public UserProfileFragment() {
@@ -71,8 +78,14 @@ public class UserProfileFragment extends Fragment {
          phonenumber =  view.findViewById(R.id.phonenumber);
          accounttype =  view.findViewById(R.id.accounttype);
          creationdate =  view.findViewById(R.id.creationdate);
+        professionalview =  view.findViewById(R.id.professionalview);
+        entreprisename =  view.findViewById(R.id.entreprisename);
+        adresse =  view.findViewById(R.id.adresse);
+        city =  view.findViewById(R.id.city);
+        zipcode =  view.findViewById(R.id.zipcode);
+        professionalview.setVisibility(View.GONE);
         try {
-            getCars();
+            getPersonnalInfo();
         } catch (JSONException | IOException | GeneralSecurityException e) {
             e.printStackTrace();
         }
@@ -85,21 +98,20 @@ public class UserProfileFragment extends Fragment {
     }
 
     public String getaccountType(String accounttype){
-        Log.e("kmkmlkmlkmlk",accounttype);
         if (accounttype.equals("0")){
             return "Particulier";
         }return "Professionel";
     }
 
-    private void getCars() throws JSONException, GeneralSecurityException, IOException {
+    private void getPersonnalInfo() throws JSONException, GeneralSecurityException, IOException {
         JSONObject paramObject = new JSONObject();
         paramObject.put("sessionid", SaveSharedPreference.getSessionId(getContext()));
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/user/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        LoginInterface car = retrofit.create(LoginInterface.class);
-        Call<Object> call = car.getUserData(paramObject.toString());
+        LoginInterface loginInterface = retrofit.create(LoginInterface.class);
+        Call<Object> call = loginInterface.getUserData(paramObject.toString());
         call.enqueue(new Callback<Object>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -118,6 +130,14 @@ public class UserProfileFragment extends Fragment {
                         phonenumber.setText(jsoncar.getString("phone_number"));
                         accounttype.setText(getaccountType(jsoncar.getString("account_type")));
                         creationdate.setText(jsoncar.getString("creation_date"));
+                        if(jsoncar.getString("account_type").equals("1")){
+                            professionalview.setVisibility(View.VISIBLE);
+                            entreprisename.setText(jsoncar.getString("entreprisename"));
+                            zipcode.setText(jsoncar.getString("zipcode"));
+                            city.setText(jsoncar.getString("city"));
+                            adresse.setText(jsoncar.getString("adresse"));
+                        }
+
                         Log.e("kkkkkkkkkkkkkkkkk",            jsoncar.getString("account_type").toString());
                     } else {
                         Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
