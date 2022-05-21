@@ -52,6 +52,9 @@ public class UserProfileFragment extends Fragment {
     TextView adresse;
     TextView city;
     TextView zipcode;
+    TextView expiredate;
+    TextView photosnumber;
+    TextView subscribtiontype;
     LinearLayout professionalview;
 
 
@@ -83,6 +86,9 @@ public class UserProfileFragment extends Fragment {
         adresse =  view.findViewById(R.id.adresse);
         city =  view.findViewById(R.id.city);
         zipcode =  view.findViewById(R.id.zipcode);
+        subscribtiontype =  view.findViewById(R.id.subscribtiontype);
+        expiredate =  view.findViewById(R.id.expiredate);
+        photosnumber =  view.findViewById(R.id.photosnumber);
         professionalview.setVisibility(View.GONE);
         try {
             getPersonnalInfo();
@@ -101,6 +107,29 @@ public class UserProfileFragment extends Fragment {
         if (accounttype.equals("0")){
             return "Particulier";
         }return "Professionel";
+    }
+    public String getAuthorizedPictures(String typeAbo){
+        switch (typeAbo){
+            case "0" :
+                return "2";
+            case "1":
+                return "4";
+            case "2":
+                return "6";
+        }
+        return "";
+    }
+
+    public String getSubName(String typeAbo){
+        switch (typeAbo){
+            case "0" :
+                return "Basic";
+            case "1":
+                return "Essentiel";
+            case "2":
+                return "Premium";
+        }
+        return "NAN";
     }
 
     private void getPersonnalInfo() throws JSONException, GeneralSecurityException, IOException {
@@ -136,6 +165,9 @@ public class UserProfileFragment extends Fragment {
                             zipcode.setText(jsoncar.getString("zipcode"));
                             city.setText(jsoncar.getString("city"));
                             adresse.setText(jsoncar.getString("adresse"));
+                            subscribtiontype.setText(getSubName(jsoncar.getString("subtype")));
+                            expiredate.setText(jsoncar.getString("expiredate"));
+                            photosnumber.setText(getAuthorizedPictures(jsoncar.getString("subtype")));
                         }
 
                         Log.e("kkkkkkkkkkkkkkkkk",            jsoncar.getString("account_type").toString());
