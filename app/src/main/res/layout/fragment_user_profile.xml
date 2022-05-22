@@ -155,7 +155,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="Elmaroufi"
+                                android:text=""
                                 android:drawableEnd="@drawable/ic_baseline_mode_edit_24"
                                 android:textColor="@color/black"
                                 android:textSize="17sp" />
@@ -200,7 +200,7 @@
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
                                 android:drawableEnd="@drawable/ic_baseline_mode_edit_24"
-                                android:text="amine"
+                                android:text=""
                                 android:textColor="@color/black"
                                 android:textSize="17sp" />
 
@@ -242,7 +242,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="01/01/2000"
+                                android:text=""
                                 android:textColor="#2F3895"
                                 android:drawableEnd="@drawable/ic_baseline_mode_edit_24"
 
@@ -284,7 +284,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="06.01.80.05.04"
+                                android:text=""
                                 android:textColor="@color/black"
                                 android:drawableEnd="@drawable/ic_baseline_mode_edit_24"
                                 android:textSize="17sp" />
@@ -324,7 +324,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="Particulier"
+                                android:text=""
                                 android:textColor="@color/black"
                                 android:textSize="20sp" />
 
@@ -360,7 +360,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="20/20/2022"
+                                android:text=""
                                 android:textColor="@color/black"
                                 android:textSize="20sp" />
 
@@ -396,7 +396,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:gravity="end"
-                                android:text="0"
+                                android:text=""
                                 android:textColor="@color/black"
                                 android:textSize="20sp" />
 
@@ -439,7 +439,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="Particulier"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -475,7 +475,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="20/20/2022"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -511,7 +511,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="0"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -548,7 +548,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="0"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -586,7 +586,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="Particulier"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -622,7 +622,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="20/20/2022"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -658,7 +658,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="20dp"
                                     android:gravity="end"
-                                    android:text="0"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="20sp" />
 
@@ -679,6 +679,7 @@
                                 android:orientation="horizontal">
 
                                 <Button
+                                    android:id="@+id/changesubscription"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
