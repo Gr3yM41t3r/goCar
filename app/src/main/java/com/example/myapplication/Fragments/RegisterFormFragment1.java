@@ -141,6 +141,7 @@ public class RegisterFormFragment1 extends Fragment {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, @NonNull Response<Object> response) {
+                Log.e("kjk", String.valueOf(response.code()));
                 if (response.code() == 200) {
                     progressDoalog.dismiss();
                     nextFragment(next_form_frame);

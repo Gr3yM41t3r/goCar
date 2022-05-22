@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,8 +51,10 @@ public class UserProfileFragment extends Fragment {
     private TextView zipcode;
     private TextView expiredate;
     private TextView photosnumber;
+    private TextView advertnumber;
     private TextView subscribtiontype;
     private LinearLayout professionalview;
+    private ImageView favoritebutton;
 
 
     public UserProfileFragment() {
@@ -81,9 +84,11 @@ public class UserProfileFragment extends Fragment {
         entreprisename = view.findViewById(R.id.entreprisename);
         adresse = view.findViewById(R.id.adresse);
         city = view.findViewById(R.id.city);
+        advertnumber = view.findViewById(R.id.advertnumber);
         zipcode = view.findViewById(R.id.zipcode);
         subscribtiontype = view.findViewById(R.id.subscribtiontype);
         expiredate = view.findViewById(R.id.expiredate);
+        favoritebutton = view.findViewById(R.id.favoritebutton);
         photosnumber = view.findViewById(R.id.imagenumber);
         professionalview.setVisibility(View.GONE);
         try {
@@ -102,6 +107,14 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
 
                 ((DashBoardActivity) requireActivity()).setFragment(new SubscriptionFragment());
+            }
+        });
+
+        favoritebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DashBoardActivity) requireActivity()).setFragment(new FavoritesFragment());
+
             }
         });
         return view;
@@ -165,6 +178,7 @@ public class UserProfileFragment extends Fragment {
                         phonenumber.setText(jsoncar.getString("phone_number"));
                         accounttype.setText(getaccountType(jsoncar.getString("account_type")));
                         creationdate.setText(jsoncar.getString("creation_date"));
+                        advertnumber.setText(jsoncar.getString("numberofAdvert"));
                         if (jsoncar.getString("account_type").equals("1")) {
                             professionalview.setVisibility(View.VISIBLE);
                             entreprisename.setText(jsoncar.getString("entreprisename"));

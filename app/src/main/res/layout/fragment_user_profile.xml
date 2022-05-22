@@ -46,12 +46,28 @@
                 android:textColor="@color/black" />
 
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="160dp"
-                android:src="@drawable/ic_baseline_account_circle_24" />
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="160dp"
+                    android:src="@drawable/ic_baseline_directions_car_52" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Mes Annonces"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
@@ -59,6 +75,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
+                    android:id="@+id/favoritebutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="160dp"
@@ -391,7 +408,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
-                                android:id="@+id/photosnumber"
+                                android:id="@+id/advertnumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
