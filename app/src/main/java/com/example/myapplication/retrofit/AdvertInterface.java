@@ -26,5 +26,14 @@ public interface AdvertInterface {
     @POST("annonce/addadvert")
     Call<Object> addAdvert(@Body String keyword);
 
+    @POST("annonce/getusersAdverts")
+    Call<Object> getusersAdverts(@Body String keyword);
+
+    @POST("annonce/getusersAdvert")
+    Call<Object> getuserAdvert(@Body String keyword);
+
+    @POST("annonce/boost")
+    Call<Object> boost(@Body String keyword);
+
 
 }

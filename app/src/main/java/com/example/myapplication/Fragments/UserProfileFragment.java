@@ -55,6 +55,7 @@ public class UserProfileFragment extends Fragment {
     private TextView subscribtiontype;
     private LinearLayout professionalview;
     private ImageView favoritebutton;
+    private ImageView myadverts;
 
 
     public UserProfileFragment() {
@@ -84,6 +85,7 @@ public class UserProfileFragment extends Fragment {
         entreprisename = view.findViewById(R.id.entreprisename);
         adresse = view.findViewById(R.id.adresse);
         city = view.findViewById(R.id.city);
+        myadverts = view.findViewById(R.id.myadverts);
         advertnumber = view.findViewById(R.id.advertnumber);
         zipcode = view.findViewById(R.id.zipcode);
         subscribtiontype = view.findViewById(R.id.subscribtiontype);
@@ -115,6 +117,13 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
                 ((DashBoardActivity) requireActivity()).setFragment(new FavoritesFragment());
 
+            }
+        });
+
+        myadverts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DashBoardActivity) requireActivity()).setFragment(new MyAdvertsFragment());
             }
         });
         return view;

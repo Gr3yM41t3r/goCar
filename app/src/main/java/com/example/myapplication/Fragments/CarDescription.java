@@ -269,7 +269,7 @@ public class CarDescription extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                getCarDescription(previousFragBundle.getString("idadvert"));
+                getCarDescription(previousFragBundle.getString("idadvert"),previousFragBundle.getString("longitude"),previousFragBundle.getString("latitude"));
             } catch (JSONException | GeneralSecurityException | IOException e) {
                 e.printStackTrace();
             };
@@ -280,9 +280,11 @@ public class CarDescription extends Fragment {
 
 
 
-    private void getCarDescription(String keyword) throws JSONException, GeneralSecurityException, IOException {
+    private void getCarDescription(String keyword,String longitude,String latitude) throws JSONException, GeneralSecurityException, IOException {
         JSONObject paramObject = new JSONObject();
         paramObject.put("idadvert", keyword);
+        paramObject.put("longitude", longitude);
+        paramObject.put("latitude", latitude);
         paramObject.put("userid", SaveSharedPreference.getSessionId(getContext()));
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")

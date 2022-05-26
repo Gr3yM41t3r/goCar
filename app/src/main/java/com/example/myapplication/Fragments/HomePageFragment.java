@@ -1,13 +1,17 @@
 package com.example.myapplication.Fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -23,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,7 +95,11 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
     ArrayList<TextView> filter= new ArrayList<>();
     Fragment favoritesFragment = new FavoritesFragment();
     Fragment addFragment = new AddAdvertFragment();
+    private String latit;
+    private String lon;
+    private static  final int REQUEST_LOCATION=1;
 
+    LocationManager locationManager;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -145,6 +155,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             public void onClick(View view) {
                 Fragment searchFragment = new SearchFragment();
                 ((DashBoardActivity) requireActivity()).setFragment(searchFragment);
+
             }
         });
         new Handler().post(new Runnable() {
@@ -227,13 +238,15 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         }
     }
 
-    public void sendBundle(Fragment fragment, String keyword) {
+    public void sendBundle(Fragment fragment, String keyword, String latitude, String longitude) {
         Bundle bundle = new Bundle();
         bundle.putString("idadvert", keyword);
+        bundle.putString("latitude", latitude);
+        bundle.putString("longitude", longitude);
         fragment.setArguments(bundle);
     }
 
-    public void fillCarList(int id,String tp,String titletxt, String mdl, String odo, String fl, String citytxt, Bitmap bm,boolean isfavorite){
+    public void fillCarList(int id,String tp,String titletxt, String mdl, String odo, String fl, String citytxt, Bitmap bm,boolean isfavorite,boolean ispro){
 
         View cardview= inflater2.inflate(R.layout.big_cardview_car,horizontal,false);
         TextView type = cardview.findViewById(R.id.type);
@@ -243,7 +256,9 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         TextView fuel = cardview.findViewById(R.id.fuel);
         TextView city = cardview.findViewById(R.id.city);
         ImageView mainImage = cardview.findViewById(R.id.mainImage);
+        ImageView isprofessional = cardview.findViewById(R.id.isprofessional);
         ImageView favorite = cardview.findViewById(R.id.favoritebutton);
+        isprofessional.setVisibility(View.GONE);
         type.setText(tp);
         title.setText(titletxt);
         model.setText(mdl);
@@ -256,10 +271,22 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             favorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_favorite_24_red));
             favorite.setSelected(true);
         }
+        if (ispro){
+            isprofessional.setVisibility(View.VISIBLE);
+        }
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendBundle(carDescription,String.valueOf(cardview.getId()));
+                locationManager= (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                {
+                    OnGPS();
+                }
+                else
+                {
+                    getLocation();
+                }
+                sendBundle(carDescription,String.valueOf(cardview.getId()),latit,lon);
                 ((DashBoardActivity) requireActivity()).setFragment(carDescription);
             }
         });
@@ -446,7 +473,8 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
                             jsonAdvert=new JSONObject(cars.getJSONObject(i).getString("advert"));
                             boolean isfavorite = Boolean.parseBoolean(cars.getJSONObject(i).getString("isfavorite"));
-                            Log.e("jjjjjjjjjjjjjjjjjjj", Boolean.toString(isfavorite));
+                            boolean ispro = Boolean.parseBoolean(cars.getJSONObject(i).getString("ispro"));
+
                             jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");;
                             byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
@@ -458,7 +486,8 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                                     jsobj.getString("fuel"),
                                     jsonAdvert.getString("city"),
                                     bitmap,
-                                    isfavorite
+                                    isfavorite,
+                                    ispro
                             );
                         }
                     } else {
@@ -486,6 +515,7 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
         JSONObject paramObject = new JSONObject();
         paramObject.put("userid", SaveSharedPreference.getSessionId(getContext()));
         paramObject.put("type", type);
+        Log.e("lùlùm",paramObject.toString());
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.URL + "api/goCar/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -498,6 +528,8 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.e("lùlùm",String.valueOf(response.code()));
+
                 try {
                     if (response.code() == 200) {
                         shimmerFrameLayout.stopShimmer();
@@ -509,9 +541,11 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         JSONArray cars = new JSONArray(jsonObject.getString("data"));
                         for (int i = 0; i < cars.length(); i++) {
+                            Log.e("lùlùm",String.valueOf(cars.length()));
                             jsobj=new JSONObject(cars.getJSONObject(i).getString("car"));
                             jsonAdvert=new JSONObject(cars.getJSONObject(i).getString("advert"));
                             boolean isfavorite = Boolean.parseBoolean(cars.getJSONObject(i).getString("isfavorite"));
+                            boolean ispro = Boolean.parseBoolean(cars.getJSONObject(i).getString("ispro"));
                             jsonArray= (JSONArray) cars.getJSONObject(i).get("photos");;
                             byte[] backToBytes = Base64.getDecoder().decode(jsonArray.get(0).toString());
                             Bitmap bitmap = BitmapFactory.decodeByteArray(backToBytes, 0, backToBytes.length);
@@ -523,7 +557,8 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                                     jsobj.getString("fuel"),
                                     jsonAdvert.getString("city"),
                                     bitmap,
-                                    isfavorite
+                                    isfavorite,
+                                    ispro
                             );
                         }
                     } else {
@@ -539,6 +574,86 @@ public class HomePageFragment extends Fragment implements  NavigationView.OnNavi
                 Toast.makeText(getActivity(), getString(R.string.an_error_occurred_please_login_again_later), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void getLocation() {
+
+        //Check Permissions again
+
+        if (ActivityCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
+
+                Manifest.permission.ACCESS_COARSE_LOCATION) !=PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(requireActivity(),new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+        else
+        {
+            Location LocationGps= locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location LocationNetwork=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location LocationPassive=locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if (LocationGps !=null)
+            {
+                double lat=LocationGps.getLatitude();
+                double longi=LocationGps.getLongitude();
+
+                latit=String.valueOf(lat);
+                lon=String.valueOf(longi);
+                Log.e("lonitude",String.valueOf(longi));
+                Log.e("latitude",String.valueOf(lat));
+
+                //showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            }
+            else if (LocationNetwork !=null)
+            {
+                double lat=LocationNetwork.getLatitude();
+                double longi=LocationNetwork.getLongitude();
+                Log.e("lonitude",String.valueOf(longi));
+                Log.e("latitude",String.valueOf(lat));
+                latit=String.valueOf(lat);
+                lon=String.valueOf(longi);
+
+               // showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            }
+            else if (LocationPassive !=null)
+            {
+                double lat=LocationPassive.getLatitude();
+                double longi=LocationPassive.getLongitude();
+                Log.e("lonitude",String.valueOf(longi));
+                Log.e("latitude",String.valueOf(lat));
+                latit=String.valueOf(lat);
+                lon=String.valueOf(longi);
+
+               // showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            }
+            else
+            {
+                Toast.makeText(requireContext(), "Can't Get Your Location", Toast.LENGTH_SHORT).show();
+            }
+
+            //Thats All Run Your App
+        }
+
+    }
+
+    private void OnGPS() {
+
+        final AlertDialog.Builder builder= new AlertDialog.Builder(requireContext());
+        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.cancel();
+            }
+        });
+        final AlertDialog alertDialog=builder.create();
+        alertDialog.show();
     }
 
 
